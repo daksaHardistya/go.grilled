@@ -42,7 +42,6 @@
                             </tr>
                         </thead>
                         <tbody id="tabel-produk">
-                            <!-- Dynamic -->
                         </tbody>
                     </table>
                 </div>
