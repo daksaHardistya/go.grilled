@@ -16,13 +16,13 @@
 
             @foreach($paketKategori as $kategori => $paketList)
                 <div class="card mb-4 shadow-sm bg-transparan text-white">
-                    <div class="card-header bg-dark text-white">
-                        <h2 class="mb-0">{{ $kategori }}</h2>
+                    <div class="card-header bg-transparent text-white">
+                        <h2 class="kategori mb-0">{{ $kategori }}</h2>
                     </div>
-                    <div class="card-body bg-grey text-white">
-                        <div class="row g-4">
+                    <div class="card-body card-hover bg-transparent text-white">
+                        <div class="card-page row g-4">
                             @foreach ($paketList as $row)
-                                <div class="col-md-4">
+                                <div class=" col-md-4">
                                     <div class="card padding-card shadow-sm">
                                         <img src="{{ asset('../storage/' . $row->image_paket) }}" class="card-img-top img-fluid" alt="{{ $row->nama_paket }}">
                                         <div class="card-body d-flex flex-column">

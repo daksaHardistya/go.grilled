@@ -10,8 +10,8 @@
       <ul class="hidden md:flex space-x-6 text-white font-medium">
         <li><a href="/admin/dashboard" class="hover:text-yellow-400 transition">Dashboard</a></li>
         <li><a href="/admin/order" class="hover:text-yellow-400 transition">Order</a></li>
-        <li><a href="/admin/produk" class="hover:text-yellow-400 transition">Produk</a></li>
         <li><a href="/admin/paket" class="hover:text-yellow-400 transition">Paket</a></li>
+        <li><a href="/admin/produk" class="hover:text-yellow-400 transition">Produk</a></li>
         <li><a href="/admin/pembukuan" class="hover:text-yellow-400 transition">Pembukuan</a></li>
         <li>
           <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="text-red-500 hover:text-red-400 font-semibold transition">Logout</a>

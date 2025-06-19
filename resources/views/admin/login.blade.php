@@ -1,4 +1,4 @@
-<x-layoute>
+<x-layoute-admin>
     <head>
         <title>Login Admin</title>
         <style>
@@ -41,4 +41,4 @@
             </form>
         </div>
     </body>    
-</x-layoute>
+</x-layoute-admin>

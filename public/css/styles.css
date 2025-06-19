@@ -252,47 +252,38 @@ h1 {
     font-weight: 700;
     letter-spacing: 1px;
 }
-
-.card-header {
-    background-color: #212529 !important;
-    color: white;
-    border-bottom: 3px solid #dc3545;
+.card-page{
+  width: 100% !important;
+  align-items: center !important;
+  margin-top: 20px !important;
 }
-
 .card {
-    transition: transform 0.5s ease-in-out, box-shadow 0.2s ease-in-out;
-    border: none;
-    border-radius: 15px;
-    overflow: hidden;
+    transition: transform 0.5s ease-in-out, box-shadow 0.2s ease-in-out !important;
+    border-radius: 15px !important;
+    color: rgb(0, 0, 0) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
 }
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgb(177, 0, 0);
+.card-hover {
+    transform: scale(1.05) !important;
 }
 .padding-card {
     padding: 20px !important;
     border-color: #000 !important;
 }
 .card-img-top {
-    height: 200px;
-    object-fit: cover;
-    width: 100%;
-    border-bottom: 1px solid #eee;
-}
-.bg-grey {
-    background-color: #dddff6 !important;
-    color: rgb(186, 184, 240) !important;
+    object-fit: cover !important;
+    width: 100% !important;
 }
 .bg-transparan {
     background-color: hsla(0, 0%, 0%, 0) !important;
     color: black !important;
 }
-.card-title {
+/* .card-title {
     font-size: 1.2rem;
     font-weight: 600;
     color: #000;
-}
-
+} */
+/* 
 .card-text {
     color: #555;
     font-size: 0.95rem;
@@ -335,12 +326,16 @@ h1 {
 
 .btn-danger:hover {
     background-color: #c82333;
-}
+} */
 
 @media (max-width: 768px) {
     .card-img-top {
         height: 150px;
     }
+}
+.kategori{
+  border-bottom: #fec515 solid 2px;
+  text-align: center;
 }
 /*CSS PRODUK SATUAN*/
 body {
