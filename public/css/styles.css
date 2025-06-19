@@ -278,56 +278,6 @@ h1 {
     background-color: hsla(0, 0%, 0%, 0) !important;
     color: black !important;
 }
-/* .card-title {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #000;
-} */
-/* 
-.card-text {
-    color: #555;
-    font-size: 0.95rem;
-    margin-bottom: 10px;
-}
-
-.harga_paket {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #dc3545 !important;
-}
-
-.form-check-label {
-    font-weight: 500;
-    font-size: 0.95rem;
-    color: #000;
-}
-
-.form-check-input:checked {
-    background-color: #dc3545;
-    border-color: #dc3545;
-}
-
-.jumlah-input {
-    margin-top: 5px;
-    width: 100%;
-    padding: 6px 12px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-}
-
-.btn-danger {
-    background-color: #dc3545;
-    border: none;
-    padding: 10px 25px;
-    border-radius: 10px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-}
-
-.btn-danger:hover {
-    background-color: #c82333;
-} */
-
 @media (max-width: 768px) {
     .card-img-top {
         height: 150px;

@@ -38,10 +38,10 @@
             </div><br>
 
             @csrf
-            <div class="button-container">
+            <div class="d-flex justify-content-between mt-4">
                 <x-backbutton/>
                 <input type="hidden" name="produk_terpilih" id="produkTerpilih" value="">
-                <button type="submit" class="tombolnext" id="buttonnext">Skip</button>
+                <button type="submit" class="btn btn-danger tombolnext" id="buttonnext">Skip</button>
             </div>            
         </form>
     </div>
