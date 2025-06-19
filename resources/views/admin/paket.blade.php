@@ -41,20 +41,10 @@
                                     <span class="text-gray-400 italic">Tidak ada gambar</span>
                                 @endif
                             </td>
-                            {{-- <td class="px-6 py-4 space-x-2">
-                                <a href="{{ route('admin.paket.edit', $paket->id_paket) }}" class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600">Edit</a>
-                                <form action="{{ route('admin.paket.delete', $paket->id_paket) }}" method="POST" class="inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700" onclick="return confirm('Yakin ingin menghapus produk ini?')">Hapus</button>
-                                </form>
-                                <button onclick="openDetail('{{ $paket->nama_paket }}', '{{ $paket->detail_paket }}', '{{ asset('storage/' . $paket->image_paket) }}')" class="block text-green-600 hover:underline">Lihat Detail</button>
-                            </td> --}}
                             <td class="px-6 py-4 space-y-2">
                                 <a href="{{ route('admin.paket.edit', $paket->id_paket) }}" class="block text-blue-600 hover:underline">Edit</a>
                                 <a href="{{ route('admin.paket.delete', $paket->id_paket) }}" onclick="return confirm('Yakin hapus paket?')" class="block text-red-600 hover:underline">Hapus</a>
                                 <button onclick="openDetail('{{ $paket->nama_paket }}', '{{ $paket->detail_paket }}', '{{ asset('storage/' . $paket->image_paket) }}')" class="block text-green-600 hover:underline">Lihat Detail</button>
-                                {{-- <button onclick="openDetail('{{ $paket->nama_paket }}', '{{ $paket->detail_paket }}', '{{ asset('storage/' . $paket->image_paket) }}')" class="block text-green-600 hover:underline">Lihat Detail</button> --}}
                             </td>
                         </tr>
                     @empty

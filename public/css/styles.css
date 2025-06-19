@@ -1,23 +1,51 @@
 @import "tailwindcss";
 body {
   background-image: url('../bg-landingpage.png');
-	/* margin: auto; */
-  font-family: 'montserrat';
   background-repeat: no-repeat;
-  background-attachment: fixed;  
-  background-size: cover;  
+  background-attachment: fixed;
+  background-size: cover;
+  font-family: 'montserrat', sans-serif;
+  padding-bottom: 80px; /* tambahkan ruang untuk footer */
+}
+.bubble-icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); */
+  transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  margin-left: 95%;
+  margin-top: 60px;
 }
 
-div{
-  font-family: 'montserrat';
-  text-decoration: none;
+.bubble-icon:hover {
+  transform: scale(1.15);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
 }
- /* Reset and global styles */
- * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+
+.icon {
+  width: 50px;
+  height: 50px;
 }
+.icon:hover{
+  transform: scale(1.15);
+}
+
+/* Tombol contact utama tanpa background, tapi tetap interaktif */
+button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+.color-white{
+  color: white !important;
+}
+
 
 /*CSS NAVBAR*/
     /* Navbar */
