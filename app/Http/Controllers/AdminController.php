@@ -44,12 +44,16 @@ class AdminController extends Controller
     
         return view('admin.order', compact('orders', 'groupedOrders'));
     }
-    public function dashboard()
+   public function dashboard()
     {
-        $orders = tabel_order::with('data_pelanggan')->get();
+        $orders = tabel_order::with('data_pelanggan')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
         $totalOrders = $orders->count();
         $stokPaket = menu_paket::sum('stock_paket');
         $stokProduk = produk_satuan::sum('stock_produk');
+
         // Hitung total pendapatan hari ini
         $today = Carbon::now()->format('Y-m-d');
         $totalPendapatan = tabel_order::whereDate('created_at', $today)
@@ -71,6 +75,7 @@ class AdminController extends Controller
             'totalPendapatanBulanIni'
         ));
     }
+
 
 public function orderUpdate(Request $request, $id)
 {
