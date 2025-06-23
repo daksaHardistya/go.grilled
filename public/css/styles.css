@@ -7,43 +7,8 @@ body {
   font-family: 'montserrat', sans-serif;
   padding-bottom: 80px; /* tambahkan ruang untuk footer */
 }
-.bubble-icon {
-  width: 50px;
-  height: 50px;
-  display: flex;
-  position: fixed;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9999px;
-  /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); */
-  transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-  margin-left: 95%;
-  margin-top: 60px;
-}
-
-.bubble-icon:hover {
-  transform: scale(1.15);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
-}
-
-.icon {
-  width: 50px;
-  height: 50px;
-}
-.icon:hover{
-  transform: scale(1.15);
-}
-
-/* Tombol contact utama tanpa background, tapi tetap interaktif */
-button {
-    background-color: transparent;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-}
-.color-white{
-  color: white !important;
+.bubble-icon{
+  width: 50px !important;
 }
 
 
@@ -55,6 +20,7 @@ button {
       align-items: center;
       justify-content: space-between;
       top: 0;
+      position: relative;
     }
 
     .logo {
@@ -683,7 +649,7 @@ table.table-bordered tfoot tr {
         pointer-events: none;
     }
 
-    .btn-secondary {
+    /* .btn-secondary {
         background-color: #333;
         color: white;
         border: none;
@@ -695,7 +661,7 @@ table.table-bordered tfoot tr {
 
     .btn-secondary:hover {
         background-color: #111;
-    }
+    } */
 
 
 /* CSS Tombol Kembali */
@@ -709,6 +675,7 @@ table.table-bordered tfoot tr {
   cursor: pointer;
   font-weight: 600;
   transition: background 0.3s;
+  position: relative;
 }
 
 .btn-secondary:hover {
@@ -723,7 +690,8 @@ table.table-bordered tfoot tr {
   margin: 0;
   padding: 2%;
   width: 80%;
-  margin-top: 9%;
+  height: fit-content;
+  margin-top: 3%;
   margin-left: 10%;
   border-radius: 15px;
 }

@@ -1,9 +1,7 @@
 <x-layoute>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <div class="card-status p-6 bg-white rounded shadow">
         <h1 class="text-2xl font-bold mb-4">Rincian Pembelanjaan</h1>
-
         <!-- Customer Details -->
         <div class="customer-details mb-6">
             <h3 class="text-lg font-semibold mb-2">Data Customer</h3>
