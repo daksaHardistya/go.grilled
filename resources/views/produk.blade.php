@@ -7,7 +7,8 @@
                 @foreach ($produkSatuan as $row)
                     <div class="produkSatuan-item" data-id="{{ $row->id_produk }}">
                         <img class="img-produk" src="{{ asset('../storage/'.$row->image_produk) }}" alt="{{ $row->nama_produk }}">
-                        <h2>Rp. {{ number_format($row->harga_produk, 0, ',', '.') }}</h2>
+                        <h5 class="card-title nama_produk">{{ $row->nama_produk}}</h5>
+                        <h6>Rp. {{ number_format($row->harga_produk, 0, ',', '.') }}</h6>
                         <p hidden>{{ $row->id_produk }}</p>
                         @if ($row->stock_produk > 0)
                             <h3>
@@ -18,7 +19,7 @@
                                     data-name="{{ $row->nama_produk }}" 
                                     data-price="{{ $row->harga_produk }}" 
                                     style="width:20px;height:20px;"> 
-                                {{ $row->nama_produk }}
+                                    Pilih
                             </h3>
                             <label class="label-jumlah" style="display: none;" data-id="{{ $row->id_produk }}">Jumlah:</label>
                             <input 
