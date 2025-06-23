@@ -58,7 +58,7 @@
                     </div>
                 </div>
             @endforeach
-
+                <x-contact></x-contact>
             <div class="d-flex justify-content-between mt-4">
                 <x-backbutton />
                 <button type="button" class="btn btn-danger tambahpaket" id="tambahpaket" style="display:none;">Next</button>
