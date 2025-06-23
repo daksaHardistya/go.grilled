@@ -20,8 +20,6 @@
                         <th class="px-6 py-3 text-left text-sm font-semibold">Aksi</th>
                     </tr>
                 </thead>
-
-                
                 <tbody class="divide-y divide-gray-200 bg-white text-sm">
                     @forelse ($paketList as $paket)
                         <tr>
