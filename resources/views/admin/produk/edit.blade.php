@@ -7,24 +7,28 @@
             <div class="space-y-4">
                 <div>
                     <label class="block text-gray-700">Nama produk</label>
-                    <input type="text" name="nama_produk" value="{{ $produk->nama_produk }}" class="w-full border border-gray-300 p-2 rounded" required>
+                    <input type="text" name="nama_produk" value="{{ $produk->nama_produk }}"
+                        class="w-full border border-gray-300 p-2 rounded" required>
                 </div>
 
                 <div>
                     <label class="block text-gray-700">Harga</label>
-                    <input type="number" name="harga_produk" value="{{ $produk->harga_produk }}" class="w-full border border-gray-300 p-2 rounded" required>
+                    <input type="number" name="harga_produk" value="{{ $produk->harga_produk }}"
+                        class="w-full border border-gray-300 p-2 rounded" required>
                 </div>
 
                 <div>
                     <label class="block text-gray-700">Stok</label>
-                    <input type="number" name="stock_produk" value="{{ $produk->stock_produk }}" class="w-full border border-gray-300 p-2 rounded" required>
+                    <input type="number" name="stock_produk" value="{{ $produk->stock_produk }}"
+                        class="w-full border border-gray-300 p-2 rounded" required>
                 </div>
 
                 <div>
                     <label class="block text-gray-700">Gambar (optional)</label>
                     <input type="file" name="image_produk" class="w-full border border-gray-300 p-2 rounded">
                     @if ($produk->image_produk)
-                        <img src="{{ asset('storage/' . $produk->image_produk) }}" class="w-20 h-20 rounded object-cover mt-2">
+                        <img src="{{ asset('storage/' . $produk->image_produk) }}"
+                            class="w-20 h-20 rounded object-cover mt-2">
                     @endif
                 </div>
             </div>

@@ -6,37 +6,29 @@
             <div class="menu-items">
                 @foreach ($produkSatuan as $row)
                     <div class="produkSatuan-item" data-id="{{ $row->id_produk }}">
-                        <img class="img-produk" src="{{ asset('../storage/'.$row->image_produk) }}" alt="{{ $row->nama_produk }}">
+                        <img class="img-produk" src="{{ asset('../storage/' . $row->image_produk) }}"
+                            alt="{{ $row->nama_produk }}">
                         <h5 class="card-title nama_produk">{{ $row->nama_produk }}</h5>
                         <h6>Rp. {{ number_format($row->harga_produk, 0, ',', '.') }}</h6>
 
                         @if ($row->stock_produk > 0)
                             <div class="flex items-center gap-2 mt-2">
-                                <input 
-                                    class="checklis w-5 h-5" 
-                                    id="checkbox{{ $row->id_produk }}"
-                                    type="checkbox" 
-                                    data-id="{{ $row->id_produk }}"
-                                    data-name="{{ $row->nama_produk }}" 
+                                <input class="checklis w-5 h-5" id="checkbox{{ $row->id_produk }}" type="checkbox"
+                                    data-id="{{ $row->id_produk }}" data-name="{{ $row->nama_produk }}"
                                     data-price="{{ $row->harga_produk }}">
                                 <label for="checkbox{{ $row->id_produk }}" class="text-sm">Pilih</label>
                             </div>
 
                             <div class="mt-2" style="display: none;" id="jumlah-wrapper-{{ $row->id_produk }}">
                                 <label for="jumlah{{ $row->id_produk }}" class="label-jumlah text-sm">Jumlah:</label>
-                                <input 
-                                    id="jumlah{{ $row->id_produk }}"
-                                    type="number" 
-                                    class="jumlah-pesanan"
-                                    data-id="{{ $row->id_produk }}"
-                                    min="1" 
-                                    value="1" 
-                                    max="{{ $row->stock_produk }}" 
-                                    data-stok="{{ $row->stock_produk }}"
+                                <input id="jumlah{{ $row->id_produk }}" type="number" class="jumlah-pesanan"
+                                    data-id="{{ $row->id_produk }}" min="1" value="1"
+                                    max="{{ $row->stock_produk }}" data-stok="{{ $row->stock_produk }}"
                                     style="width: 60px;">
                             </div>
                         @else
-                            <h3 style="color: red;">{{ $row->nama_produk }} - <span style="font-weight: bold;">Stok Habis</span></h3>
+                            <h3 style="color: red;">{{ $row->nama_produk }} - <span style="font-weight: bold;">Stok
+                                    Habis</span></h3>
                         @endif
                     </div>
                 @endforeach
@@ -46,23 +38,24 @@
             <div class="fixed-btn justify-content-between mt-4">
                 <x-backbutton />
                 <input type="hidden" name="produk_terpilih" id="produkTerpilih" value="">
-                <button type="submit" class="btn-next tombolnext" id="buttonnext">Skip <i class="fas fa-angle-double-right"></i></button>
-            </div> 
-            <x-contact></x-contact>           
+                <button type="submit" class="btn-next tombolnext" id="buttonnext">Skip <i
+                        class="fas fa-angle-double-right"></i></button>
+            </div>
+            <x-contact></x-contact>
         </form>
     </div>
 </x-layoute>
 
 <!-- === SCRIPT === -->
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function() {
         const checkboxes = document.querySelectorAll(".checklis");
         const buttonnext = document.getElementById("buttonnext");
 
         buttonnext.innerHTML = 'Skip <i class="fas fa-angle-double-right"></i>';
 
         checkboxes.forEach(checkbox => {
-            checkbox.addEventListener("change", function () {
+            checkbox.addEventListener("change", function() {
                 const id_produk = this.dataset.id;
                 const jumlahWrapper = document.getElementById(`jumlah-wrapper-${id_produk}`);
                 const jumlahInput = document.getElementById(`jumlah${id_produk}`);
@@ -74,11 +67,13 @@
                 }
 
                 const adaYangDipilih = Array.from(checkboxes).some(cb => cb.checked);
-                buttonnext.innerHTML = adaYangDipilih ? 'Next <i class="fas fa-arrow-right"></i>' : 'Skip <i class="fas fa-angle-double-right"></i>';
+                buttonnext.innerHTML = adaYangDipilih ?
+                    'Next <i class="fas fa-arrow-right"></i>' :
+                    'Skip <i class="fas fa-angle-double-right"></i>';
             });
         });
 
-        document.getElementById("produkForm").addEventListener("submit", function (e) {
+        document.getElementById("produkForm").addEventListener("submit", function(e) {
             const produkDipilih = [];
 
             checkboxes.forEach(checkbox => {

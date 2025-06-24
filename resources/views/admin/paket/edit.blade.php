@@ -7,7 +7,8 @@
             <div class="space-y-4">
                 <div>
                     <label class="block text-gray-700">Nama Paket</label>
-                    <input type="text" name="nama_paket" value="{{ $paket->nama_paket }}" class="w-full border border-gray-300 p-2 rounded" required>
+                    <input type="text" name="nama_paket" value="{{ $paket->nama_paket }}"
+                        class="w-full border border-gray-300 p-2 rounded" required>
                 </div>
 
                 <div>
@@ -27,19 +28,22 @@
 
                 <div>
                     <label class="block text-gray-700">Harga</label>
-                    <input type="number" name="harga_paket" value="{{ $paket->harga_paket }}" class="w-full border border-gray-300 p-2 rounded" required>
+                    <input type="number" name="harga_paket" value="{{ $paket->harga_paket }}"
+                        class="w-full border border-gray-300 p-2 rounded" required>
                 </div>
 
                 <div>
                     <label class="block text-gray-700">Stok</label>
-                    <input type="number" name="stock_paket" value="{{ $paket->stock_paket }}" class="w-full border border-gray-300 p-2 rounded" required>
+                    <input type="number" name="stock_paket" value="{{ $paket->stock_paket }}"
+                        class="w-full border border-gray-300 p-2 rounded" required>
                 </div>
 
                 <div>
                     <label class="block text-gray-700">Gambar (optional)</label>
                     <input type="file" name="image_paket" class="w-full border border-gray-300 p-2 rounded">
                     @if ($paket->image_paket)
-                        <img src="{{ asset('storage/' . $paket->image_paket) }}" class="w-20 h-20 rounded object-cover mt-2">
+                        <img src="{{ asset('storage/' . $paket->image_paket) }}"
+                            class="w-20 h-20 rounded object-cover mt-2">
                     @endif
                 </div>
             </div>

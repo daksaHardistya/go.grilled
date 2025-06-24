@@ -15,8 +15,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
-
-
 class custommerController extends Controller
 {
     /**
@@ -25,7 +23,7 @@ class custommerController extends Controller
     public function showProduk()
     {
         $produkSatuan = produk_satuan::all();
-        return view('produk',compact('produkSatuan'));
+        return view('produk', compact('produkSatuan'));
     }
 
     public function showForm()
@@ -35,25 +33,21 @@ class custommerController extends Controller
 
     public function showPakets()
     {
-        $paketmenubasic = menu_paket::where('kategori_paket', 'basic')
-            ->where('stock_paket', '>', 0)
-            ->get();
-    
-        $paketmenuspecial = menu_paket::where('kategori_paket', 'special')
-            ->where('stock_paket', '>', 0)
-            ->get();
-    
-        $paketmenufamily = menu_paket::where('kategori_paket', 'family')
-            ->where('stock_paket', '>', 0)
-            ->get();
-    
+        $paketmenubasic = menu_paket::where('kategori_paket', 'basic')->where('stock_paket', '>', 0)->get();
+
+        $paketmenuspecial = menu_paket::where('kategori_paket', 'special')->where('stock_paket', '>', 0)->get();
+
+        $paketmenufamily = menu_paket::where('kategori_paket', 'family')->where('stock_paket', '>', 0)->get();
+
         return view('paket', compact('paketmenubasic', 'paketmenuspecial', 'paketmenufamily'));
     }
-    
-    public function showMetodePembayaran(){
+
+    public function showMetodePembayaran()
+    {
         return view('metodePembayaran');
     }
-    public function showPembayaranTransfer(){
+    public function showPembayaranTransfer()
+    {
         return view('pembayaranTransfer');
     }
     public function uploadBuktiTf(Request $request)
@@ -65,14 +59,15 @@ class custommerController extends Controller
 
             return response()->json([
                 'success' => true,
-                'fileName' => $fileName
+                'fileName' => $fileName,
             ]);
         }
 
         return response()->json(['success' => false], 400);
     }
 
-    public function showInvoice(){
+    public function showInvoice()
+    {
         return view('invoice');
     }
     public function simpanOrderan(Request $request)
@@ -87,10 +82,10 @@ class custommerController extends Controller
             // =======================
             Log::info('Mulai menyimpan data pelanggan...');
             $pelanggan = data_pelanggan::create([
-                'nomor_tlp'   => $data['pelanggan']['nomor_tlp'] ?? null,
-                'nama_pel'    => $data['pelanggan']['nama_pel'] ?? null,
-                'alamat_pel'  => $data['pelanggan']['alamat_pel'] ?? null,
-                'email_pel'   => $data['pelanggan']['email_pel'] ?? null,
+                'nomor_tlp' => $data['pelanggan']['nomor_tlp'] ?? null,
+                'nama_pel' => $data['pelanggan']['nama_pel'] ?? null,
+                'alamat_pel' => $data['pelanggan']['alamat_pel'] ?? null,
+                'email_pel' => $data['pelanggan']['email_pel'] ?? null,
             ]);
             Log::info('Data pelanggan berhasil disimpan.', ['id_pel' => $pelanggan->id_pel]);
 
@@ -99,12 +94,12 @@ class custommerController extends Controller
             // =======================
             Log::info('Mulai menyimpan data order...');
             $order = tabel_order::create([
-                'id_pel'            => $pelanggan->id_pel,
-                'nomor_transaksi'   => $data['order']['nomor_transaksi'],
-                'tipe_pembayaran'   => $data['order']['tipe_pembayaran'],
-                'total_belanjaan'   => $data['order']['total_belanjaan'],
-                'status_order'      => 'pending',
-                'bukti_pembayaran'  => $data['order']['bukti_pembayaran'] ?? 'Cash',
+                'id_pel' => $pelanggan->id_pel,
+                'nomor_transaksi' => $data['order']['nomor_transaksi'],
+                'tipe_pembayaran' => $data['order']['tipe_pembayaran'],
+                'total_belanjaan' => $data['order']['total_belanjaan'],
+                'status_order' => 'pending',
+                'bukti_pembayaran' => $data['order']['bukti_pembayaran'] ?? 'Cash',
             ]);
             Log::info('Data order berhasil disimpan.', ['id_order' => $order->id_order]);
 
@@ -123,17 +118,17 @@ class custommerController extends Controller
                 }
 
                 tabel_orderPaket::create([
-                    'id_order'          => $order->id_order,
-                    'id_paket'          => $paket->id_paket,
+                    'id_order' => $order->id_order,
+                    'id_paket' => $paket->id_paket,
                     'jumlah_orderPaket' => $orderPaket['jumlah_orderPaket'],
                 ]);
 
                 $paket->stock_paket -= $orderPaket['jumlah_orderPaket'];
                 $paket->save();
 
-                Log::info("Berhasil simpan orderPaket dan update stok", [
+                Log::info('Berhasil simpan orderPaket dan update stok', [
                     'id_paket' => $paket->id_paket,
-                    'sisa_stok' => $paket->stock_paket
+                    'sisa_stok' => $paket->stock_paket,
                 ]);
             }
 
@@ -152,17 +147,17 @@ class custommerController extends Controller
                 }
 
                 tabel_orderProduk::create([
-                    'id_order'           => $order->id_order,
-                    'id_produk'          => $produk->id_produk,
+                    'id_order' => $order->id_order,
+                    'id_produk' => $produk->id_produk,
                     'jumlah_orderProduk' => $orderProduk['jumlah_orderProduk'],
                 ]);
 
                 $produk->stock_produk -= $orderProduk['jumlah_orderProduk'];
                 $produk->save();
 
-                Log::info("Berhasil simpan orderProduk dan update stok", [
+                Log::info('Berhasil simpan orderProduk dan update stok', [
                     'id_produk' => $produk->id_produk,
-                    'sisa_stok' => $produk->stock_produk
+                    'sisa_stok' => $produk->stock_produk,
                 ]);
             }
 
@@ -170,11 +165,10 @@ class custommerController extends Controller
 
             Log::info('Transaksi berhasil disimpan.', [
                 'id_order' => $order->id_order,
-                'total_belanjaan' => $order->total_belanjaan
+                'total_belanjaan' => $order->total_belanjaan,
             ]);
 
             return response()->json(['message' => 'Transaksi berhasil disimpan!'], 200);
-
         } catch (\Exception $e) {
             DB::rollBack();
 
@@ -182,15 +176,18 @@ class custommerController extends Controller
                 'message' => $e->getMessage(),
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),
-                'trace' => $e->getTraceAsString()
+                'trace' => $e->getTraceAsString(),
             ]);
 
-            return response()->json([
-                'error' => 'Gagal menyimpan transaksi.',
-                'pesan' => $e->getMessage(),
-                'file' => $e->getFile(),
-                'line' => $e->getLine(),
-            ], 500);
+            return response()->json(
+                [
+                    'error' => 'Gagal menyimpan transaksi.',
+                    'pesan' => $e->getMessage(),
+                    'file' => $e->getFile(),
+                    'line' => $e->getLine(),
+                ],
+                500,
+            );
         }
     }
 
@@ -198,7 +195,7 @@ class custommerController extends Controller
     {
         return view('cart');
     }
-     /**
+    /**
      * Show the form for creating a new resource.
      */
     public function create()

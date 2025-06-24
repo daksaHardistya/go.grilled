@@ -51,8 +51,10 @@
             <div class="cart-footer">
                 <div id="total-belanja" class="cart-total">Total: <strong>Rp. 0</strong></div>
                 <div class="cart-actions">
-                    <button onclick="history.back()" class="btn-secondary"><i class="fas fa-arrow-left"></i> Back</button>
-                    <button id="btn-checkout" onclick="checkout()" class="btn-checkout"> Checkout <i class="fas fa-arrow-right-to-bracket"></i>
+                    <button onclick="history.back()" class="btn-secondary"><i class="fas fa-arrow-left"></i>
+                        Back</button>
+                    <button id="btn-checkout" onclick="checkout()" class="btn-checkout"> Checkout <i
+                            class="fas fa-arrow-right-to-bracket"></i>
                     </button>
                 </div>
             </div>
@@ -63,7 +65,7 @@
 
 <!-- Script Keranjang -->
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function() {
         let paketDipilih = JSON.parse(localStorage.getItem("paket_dipilih")) || [];
         let produkDipilih = JSON.parse(localStorage.getItem("produk_dipilih")) || [];
 
@@ -142,7 +144,7 @@
         }
 
         // Fungsi Paket
-        window.tambahPaket = function (id) {
+        window.tambahPaket = function(id) {
             const item = paketDipilih.find(p => parseInt(p.id_paket) === parseInt(id));
             if (item) {
                 item.jumlah_paket++;
@@ -151,7 +153,7 @@
             }
         };
 
-        window.kurangPaket = function (id) {
+        window.kurangPaket = function(id) {
             const item = paketDipilih.find(p => parseInt(p.id_paket) === parseInt(id));
             if (item) {
                 item.jumlah_paket--;
@@ -163,14 +165,14 @@
             }
         };
 
-        window.hapusPaket = function (id) {
+        window.hapusPaket = function(id) {
             paketDipilih = paketDipilih.filter(p => parseInt(p.id_paket) !== parseInt(id));
             simpanKeLocalStorage();
             renderTabel();
         };
 
         // Fungsi Produk
-        window.tambahProduk = function (id) {
+        window.tambahProduk = function(id) {
             const item = produkDipilih.find(p => parseInt(p.id_produk) === parseInt(id));
             if (item) {
                 item.jumlah_produk++;
@@ -179,7 +181,7 @@
             }
         };
 
-        window.kurangProduk = function (id) {
+        window.kurangProduk = function(id) {
             const item = produkDipilih.find(p => parseInt(p.id_produk) === parseInt(id));
             if (item) {
                 item.jumlah_produk--;
@@ -191,14 +193,14 @@
             }
         };
 
-        window.hapusProduk = function (id) {
+        window.hapusProduk = function(id) {
             produkDipilih = produkDipilih.filter(p => parseInt(p.id_produk) !== parseInt(id));
             simpanKeLocalStorage();
             renderTabel();
         };
 
         // Checkout
-        window.checkout = function () {
+        window.checkout = function() {
             if (paketDipilih.length === 0 && produkDipilih.length === 0) {
                 alert("Silakan tambahkan produk atau paket terlebih dahulu sebelum checkout.");
                 return;

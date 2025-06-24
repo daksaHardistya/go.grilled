@@ -1,5 +1,5 @@
 <x-layoute>
-    <x-navbar/><br><br>
+    <x-navbar /><br><br>
     <div class="container my-5">
         <h1 class="text-center fw-bold mb-5 text-white">PAKET MENU</h1>
         <form id="orderPaketForm">
@@ -14,7 +14,7 @@
                 ];
             @endphp
 
-            @foreach($paketKategori as $kategori => $paketList)
+            @foreach ($paketKategori as $kategori => $paketList)
                 <div class="card mb-4 shadow-sm bg-transparan text-white">
                     <div class="card-header bg-transparent text-white">
                         <h2 class="kategori mb-0">{{ $kategori }}</h2>
@@ -24,28 +24,29 @@
                             @foreach ($paketList as $row)
                                 <div class="col-12 col-md-4">
                                     <div class="card padding-card shadow-sm">
-                                        <img src="{{ asset('../storage/' . $row->image_paket) }}" class="card-img-top img-fluid" alt="{{ $row->nama_paket }}">
+                                        <img src="{{ asset('../storage/' . $row->image_paket) }}"
+                                            class="card-img-top img-fluid" alt="{{ $row->nama_paket }}">
                                         <div class="card-body d-flex flex-column">
                                             <input type="hidden" class="id_paket" value="{{ $row->id_paket }}">
                                             <h5 class="card-title nama_paket">{{ $row->nama_paket }}</h5>
                                             <p class="card-text">{{ $row->detail_paket }}</p>
-                                            <h6 class="harga_paket text-danger">Rp. {{ number_format($row->harga_paket, 0, ',', '.') }}</h6>
+                                            <h6 class="harga_paket text-danger">Rp.
+                                                {{ number_format($row->harga_paket, 0, ',', '.') }}</h6>
 
                                             <div class="mt-auto">
                                                 @if ($row->stock_paket > 0)
                                                     <div class="form-check mb-2">
-                                                        <input class="form-check-input paket-checkbox" type="checkbox" id="checkbox{{ $row->id_paket }}">
-                                                        <label class="form-check-label" for="checkbox{{ $row->id_paket }}">
+                                                        <input class="form-check-input paket-checkbox" type="checkbox"
+                                                            id="checkbox{{ $row->id_paket }}">
+                                                        <label class="form-check-label"
+                                                            for="checkbox{{ $row->id_paket }}">
                                                             Pilih
                                                         </label>
                                                     </div>
-                                                    <input type="number"
-                                                        class="form-control jumlah-input"
-                                                        min="1"
-                                                        value="1"
+                                                    <input type="number" class="form-control jumlah-input"
+                                                        min="1" value="1"
                                                         data-stok="{{ $row->stock_paket }}"
-                                                        max="{{ $row->stock_paket }}"
-                                                        style="display: none;">
+                                                        max="{{ $row->stock_paket }}" style="display: none;">
                                                 @else
                                                     <span class="text-danger fw-bold">Stok Habis</span>
                                                 @endif
@@ -60,14 +61,15 @@
             @endforeach
             <div class="fixed-btn justify-content-between mt-4">
                 <x-backbutton />
-                <button type="button" class="btn-next tambahpaket" id="tambahpaket" style="display:none;">Next <i class="fas fa-arrow-right"></i></button>
+                <button type="button" class="btn-next tambahpaket" id="tambahpaket" style="display:none;">Next <i
+                        class="fas fa-arrow-right"></i></button>
             </div>
             <x-contact></x-contact>
         </form>
     </div>
 </x-layoute>
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function() {
         const checkboxes = document.querySelectorAll(".paket-checkbox");
         const orderButton = document.getElementById("tambahpaket");
 
@@ -131,9 +133,11 @@
 
             localStorage.setItem("paket_dipilih", JSON.stringify(paketLama));
             alert("Paket telah ditambahkan ke keranjang!");
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
             window.location.href = "/produk";
         });
     });
 </script>
-

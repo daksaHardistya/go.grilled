@@ -11,7 +11,7 @@
                 </tr>
                 <tr class="border-b">
                     <td class="py-2 font-semibold">Email</td>
-                   <td class="py-2">
+                    <td class="py-2">
                         <a href="mailto:{{ $pelanggan->email_pel }}" class="text-blue-600 hover:underline">
                             {{ $pelanggan->email_pel }}
                         </a>
@@ -27,7 +27,8 @@
                     @endphp
 
                     <td class="py-2">
-                        <a href="https://wa.me/{{ $nomor_wa }}" target="_blank" class="text-green-600 hover:underline">
+                        <a href="https://wa.me/{{ $nomor_wa }}" target="_blank"
+                            class="text-green-600 hover:underline">
                             {{ $pelanggan->nomor_tlp }}
                         </a>
                     </td>
@@ -40,7 +41,8 @@
         </table>
 
         <div class="mt-6">
-            <a href="{{ route('admin.order.show') }}" class="text-red-600 hover:underline">&larr; Kembali ke Daftar Order</a>
+            <a href="{{ route('admin.order.show') }}" class="text-red-600 hover:underline">&larr; Kembali ke Daftar
+                Order</a>
         </div>
     </div>
 </x-layoute-admin>
