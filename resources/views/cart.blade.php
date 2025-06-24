@@ -2,11 +2,11 @@
     <x-navbar></x-navbar><br>
     <div class="body-cart">
         <div class="cart-container">
-            <h2 class="cart-title">Keranjang Belanja</h2>
+            <h2 class="cart-title">KERANJANG BELANJA</h2>
 
             <!-- Paket -->
             <section class="cart-section">
-                <h3 class="cart-subtitle">Paket yang Dipesan</h3>
+                <h3 class="cart-subtitle">Paket yang dipesan :</h3>
                 <div class="cart-table-wrapper">
                     <table class="cart-table">
                         <thead>
@@ -28,7 +28,7 @@
 
             <!-- Produk -->
             <section class="cart-section">
-                <h3 class="cart-subtitle">Produk yang Dipesan</h3>
+                <h3 class="cart-subtitle">Produk yang dipesan</h3>
                 <div class="cart-table-wrapper">
                     <table class="cart-table">
                         <thead>
@@ -49,10 +49,11 @@
 
             <!-- Total dan Tombol -->
             <div class="cart-footer">
-                <div id="total-belanja" class="cart-total">Total: <strong>Rp0</strong></div>
+                <div id="total-belanja" class="cart-total">Total: <strong>Rp. 0</strong></div>
                 <div class="cart-actions">
-                    <button onclick="history.back()" class="btn-secondary">Kembali</button>
-                    <button id="btn-checkout" onclick="checkout()" class="btn-primary">Checkout</button>
+                    <button onclick="history.back()" class="btn-secondary"><i class="fas fa-arrow-left"></i> Back</button>
+                    <button id="btn-checkout" onclick="checkout()" class="btn-checkout"> Checkout <i class="fas fa-arrow-right-to-bracket"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -93,13 +94,13 @@
                 row.innerHTML = `
                     <td><img src="${paket.image_paket}" width="70"></td>
                     <td>${paket.nama_paket}</td>
-                    <td>Rp${paket.harga_paket.toLocaleString("id-ID")}</td>
-                    <td>${paket.jumlah_paket}</td>
-                    <td>Rp${subtotal.toLocaleString("id-ID")}</td>
+                    <td>Rp. ${paket.harga_paket.toLocaleString("id-ID")}</td>
+                    <td>${paket.jumlah_paket} Paket</td>
+                    <td>Rp. ${subtotal.toLocaleString("id-ID")}</td>
                     <td>
                         <button class="btn-action" onclick="tambahPaket(${paket.id_paket})">+</button>
                         <button class="btn-action" onclick="kurangPaket(${paket.id_paket})">−</button>
-                        <button class="btn-delete" onclick="hapusPaket(${paket.id_paket})">🗑</button>
+                        <button class="btn-delete" onclick="hapusPaket(${paket.id_paket})"><i class="fas fa-trash"></i></button>
                     </td>
 
                 `;
@@ -115,19 +116,19 @@
                 row.innerHTML = `
                     <td><img src="${produk.image_produk}" width="70"></td>
                     <td>${produk.nama_produk}</td>
-                    <td>Rp${produk.harga_produk.toLocaleString("id-ID")}</td>
-                    <td>${produk.jumlah_produk}</td>
-                    <td>Rp${subtotal.toLocaleString("id-ID")}</td>
+                    <td>Rp. ${produk.harga_produk.toLocaleString("id-ID")}</td>
+                    <td>${produk.jumlah_produk} pcs</td>
+                    <td>Rp. ${subtotal.toLocaleString("id-ID")}</td>
                     <td>
                         <button class="btn-action" onclick="tambahProduk(${produk.id_produk})">+</button>
                         <button class="btn-action" onclick="kurangProduk(${produk.id_produk})">−</button>
-                        <button class="btn-delete" onclick="hapusProduk(${produk.id_produk})">🗑</button>
+                        <button class="btn-delete" onclick="hapusProduk(${produk.id_produk})"><i class="fas fa-trash"></i></button>
                     </td>
                 `;
                 tabelProduk.appendChild(row);
             });
 
-            totalBelanja.innerHTML = `Total: <strong>Rp${grandTotal.toLocaleString("id-ID")}</strong>`;
+            totalBelanja.innerHTML = `<strong>Total: Rp. ${grandTotal.toLocaleString("id-ID")}</strong>`;
 
             // Toggle tombol checkout
             if (paketDipilih.length === 0 && produkDipilih.length === 0) {

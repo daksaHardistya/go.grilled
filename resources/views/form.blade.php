@@ -29,10 +29,10 @@
             <li id="checkbox-list"></li>
             <br>
 
-            <h3>Total: Rp. <span id="total-amount">0</span></h3><br>
-            <div class="button-container">
+            <h4>Total: Rp. <span id="total-amount">0</span></h4>
+            <div class="flex justify-between mt-4">
                 <x-backbutton />
-                <button class="tombol-kirim" type="button" id="submit-button">Kirim</button><br><br>
+                <button class="btn-next right-btn" type="button" id="submit-button">Next <i class="fas fa-arrow-right"></i></button>
             </div>
         </form>
     </div>

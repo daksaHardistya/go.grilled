@@ -1,21 +1,20 @@
 <x-layoute>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <div class="card-status p-6 bg-white rounded shadow">
-        <h1 class="text-2xl font-bold mb-4">Rincian Pembelanjaan</h1>
+        <h1 class="text-2xl font-bold mb-4">RINCIAN PEMBELANJAAN</h1>
         <!-- Customer Details -->
         <div class="customer-details mb-6">
-            <h3 class="text-lg font-semibold mb-2">Data Customer</h3>
-            <p><strong>Nama:</strong> <span id="customer-name">-</span></p>
-            <p><strong>Alamat:</strong> <span id="customer-address">-</span></p>
-            <p><strong>Nomor Telepon:</strong> <span id="customer-phone">-</span></p>
-            <p><strong>Email:</strong> <span id="customer-email">-</span></p>
-            <p><strong>Nomor Pembayaran:</strong> <span id="nomor-pembayaran">-</span></p>
-            <p><strong>Tipe Pembayaran:</strong> <span id="tipe-pembayaran">-</span></p>
+            <h3 class="font-bold mb-2">Data Customer</h3>
+            <div><strong>Nama:</strong> <span id="customer-name">-</span></div>
+            <div><strong>Nomor WhatsApp:</strong> <span id="customer-phone">-</span></div>
+            <div><strong>Alamat:</strong> <span id="customer-address">-</span></div>
+            <div><strong>Email:</strong> <span id="customer-email">-</span></div>
+            <div><strong>Nomor Transaksi:</strong> <span id="nomor-transaksi">-</span></div>
+            <div><strong>Jenis Pembayaran:</strong> <span id="tipe-pembayaran">-</span></div>
         </div>
-
         <!-- Order Summary -->
         <div class="order-summary mb-6">
-            <h3 class="text-lg font-semibold mb-2">Rincian Pembelanjaan</h3>
+            <h3 class="font-bold mb-2">Rincian Pembelanjaan</h3>
             <table class="w-full text-left border border-gray-300 mb-4">
                 <thead class="bg-gray-100">
                     <tr>
@@ -30,21 +29,32 @@
 
         <!-- Metode Pembayaran -->
         <div class="payment-method mb-6">
-            <h3 class="text-lg font-semibold mb-2">Pilih Metode Pembayaran:</h3>
-            <label class="mr-4"><input type="radio" name="payment-method" id="cash" value="Cash"> Cash</label>
-            <label><input type="radio" name="payment-method" id="transfer" value="Transfer Bank"> Transfer Bank</label>
+        <h3 class="font-semibold mb-2">Pilih Metode Pembayaran:</h3>
+        <div class="radio-group">
+            <label>
+            <input id="cash" class="radio" type="radio" name="payment-method" value="Cash">
+            Cash <i class="fas fa-money-bill-wave"></i>
+            </label>
+            <label>
+            <input id="transfer" class="radio" type="radio" name="payment-method" value="Transfer Bank">
+            Transfer Bank <i class="fas fa-university"></i>
+            </label>
         </div>
-
+        </div><br>
         <!-- Upload Bukti Transfer -->
-        <div id="upload-section" class="mb-6" style="display: none;">
-            <h3 class="text-black font-semibold mb-2">Upload Bukti Transfer</h3>
-            <input type="file" id="proof-upload" name="bukti_pembayaran" accept=".jpg,.jpeg,.png,.pdf" class="block mt-2">
+        <div id="upload-section" class="upload-section mb-6" style="display: none;">
+            <h5>Rekening transfer :</h5>
+            <h6>a.n. KadeK Yuda Wiryanatha</h6>
+            <h6>Bank BRI: 1122334455 a.n. Go Grilled</h6>
+            <p>*Pastikan untuk menyimpan dan mengunggah bukti transfer Anda.</p>
+            <h5 class="text-black font-bold mb-2">Upload Bukti Transfer</h3>
+            <input type="file" id="proof-upload" name="bukti_pembayaran" accept=".jpg,.jpeg,.png,.pdf" class="block mt-2" value="File belum diupload">
         </div>
 
         <!-- Tombol Aksi -->
-        <div class="button-container mt-4">
+        <div class="flex justify-between mt-4">
             <x-backbutton/>
-            <button id="confirm-button" class="button-confirm text-white px-4 py-2 rounded transition duration-200" style="display: none;">Next</button>
+            <button id="confirm-button" class="button-confirm" style="display: none;">Place Order <i class="fas fa-check-circle mr-2"></i></button>
         </div>
     </div>
 
@@ -73,7 +83,7 @@
             document.getElementById('customer-address').innerText = customerData.alamat || '-';
             document.getElementById('customer-phone').innerText = customerData.nomor_tlp || '-';
             document.getElementById('customer-email').innerText = customerData.email || '-';
-            document.getElementById('nomor-pembayaran').innerText = nomorPembayaran;
+            document.getElementById('nomor-transaksi').innerText = nomorPembayaran;
             document.getElementById('tipe-pembayaran').innerText = tipePembayaran || '-';
 
             const orderTable = document.getElementById('order-details');
@@ -83,7 +93,7 @@
                 const subtotal = item.jumlah_paket * item.harga_paket;
                 orderTable.innerHTML += `
                     <tr>
-                        <td class="p-2 border">${item.nama_paket} x${item.jumlah_paket}</td>
+                        <td class="p-2 border">${item.nama_paket} (x${item.jumlah_paket})</td>
                         <td class="p-2 border text-right">Rp ${subtotal.toLocaleString('id-ID')}</td>
                     </tr>`;
                 totalHarga += subtotal;
@@ -93,7 +103,7 @@
                 const subtotal = item.jumlah_produk * item.harga_produk;
                 orderTable.innerHTML += `
                     <tr>
-                        <td class="p-2 border">${item.nama_produk} x${item.jumlah_produk}</td>
+                        <td class="p-2 border">${item.nama_produk} (x${item.jumlah_produk})</td>
                         <td class="p-2 border text-right">Rp ${subtotal.toLocaleString('id-ID')}</td>
                     </tr>`;
                 totalHarga += subtotal;
@@ -107,6 +117,7 @@
             const confirmButton = document.getElementById('confirm-button');
             const proofInput = document.getElementById('proof-upload');
 
+
             radios.forEach(radio => {
                 radio.addEventListener('change', function () {
                     tipePembayaran = this.value;
@@ -115,12 +126,13 @@
 
                     if (this.id === "transfer") {
                         uploadSection.style.display = "block";
-                    } else {
+                    } if (this.id === "cash") {
                         uploadSection.style.display = "none";
                         localStorage.setItem("bukti_pembayaran", "Cash");
+                        confirmButton.style.display = "inline-block";
+                    } else {
+                        confirmButton.style.display = "none";
                     }
-
-                    confirmButton.style.display = "inline-block";
                 });
             });
 
@@ -145,6 +157,7 @@
                     if (data.success) {
                         localStorage.setItem("bukti_pembayaran", data.fileName);
                         alert("Bukti transfer berhasil diupload.");
+                        confirmButton.style.display = "inline-block";
                     } else {
                         alert("Gagal mengupload bukti transfer.");
                     }

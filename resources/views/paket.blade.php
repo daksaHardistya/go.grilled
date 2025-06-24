@@ -22,7 +22,7 @@
                     <div class="card-body card-hover bg-transparent text-white">
                         <div class="card-page row g-4">
                             @foreach ($paketList as $row)
-                                <div class=" col-md-4">
+                                <div class="col-12 col-md-4">
                                     <div class="card padding-card shadow-sm">
                                         <img src="{{ asset('../storage/' . $row->image_paket) }}" class="card-img-top img-fluid" alt="{{ $row->nama_paket }}">
                                         <div class="card-body d-flex flex-column">
@@ -58,10 +58,9 @@
                     </div>
                 </div>
             @endforeach
-                <x-contact></x-contact>
-            <div class="d-flex justify-content-between mt-4">
+            <div class="fixed-btn justify-content-between mt-4">
                 <x-backbutton />
-                <button type="button" class="btn btn-danger tambahpaket" id="tambahpaket" style="display:none;">Next</button>
+                <button type="button" class="btn-next tambahpaket" id="tambahpaket" style="display:none;">Next <i class="fas fa-arrow-right"></i></button>
             </div>
         </form>
     </div>
@@ -131,6 +130,7 @@
 
             localStorage.setItem("paket_dipilih", JSON.stringify(paketLama));
             alert("Paket telah ditambahkan ke keranjang!");
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             window.location.href = "/produk";
         });
     });

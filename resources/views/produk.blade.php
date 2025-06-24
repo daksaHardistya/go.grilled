@@ -1,5 +1,5 @@
 <x-layoute>
-    <x-navbar></x-navbar><br><br><br><br><br>
+    <x-navbar></x-navbar>
     <div class="produkSatuan">
         <h1 class="heading-produk">PRODUK SATUAN</h1>
         <form id="produkForm" action="cart" method="GET">
@@ -7,30 +7,34 @@
                 @foreach ($produkSatuan as $row)
                     <div class="produkSatuan-item" data-id="{{ $row->id_produk }}">
                         <img class="img-produk" src="{{ asset('../storage/'.$row->image_produk) }}" alt="{{ $row->nama_produk }}">
-                        <h5 class="card-title nama_produk">{{ $row->nama_produk}}</h5>
+                        <h5 class="card-title nama_produk">{{ $row->nama_produk }}</h5>
                         <h6>Rp. {{ number_format($row->harga_produk, 0, ',', '.') }}</h6>
-                        <p hidden>{{ $row->id_produk }}</p>
+
                         @if ($row->stock_produk > 0)
-                            <h3>
+                            <div class="flex items-center gap-2 mt-2">
                                 <input 
-                                    class="checklis" 
+                                    class="checklis w-5 h-5" 
+                                    id="checkbox{{ $row->id_produk }}"
                                     type="checkbox" 
                                     data-id="{{ $row->id_produk }}"
                                     data-name="{{ $row->nama_produk }}" 
-                                    data-price="{{ $row->harga_produk }}" 
-                                    style="width:20px;height:20px;"> 
-                                    Pilih
-                            </h3>
-                            <label class="label-jumlah" style="display: none;" data-id="{{ $row->id_produk }}">Jumlah:</label>
-                            <input 
-                                type="number" 
-                                class="jumlah-pesanan" 
-                                data-id="{{ $row->id_produk }}"
-                                min="1" 
-                                value="1" 
-                                max="{{ $row->stock_produk }}" 
-                                data-stok="{{ $row->stock_produk }}"
-                                style="display: none; width:60px;">
+                                    data-price="{{ $row->harga_produk }}">
+                                <label for="checkbox{{ $row->id_produk }}" class="text-sm">Pilih</label>
+                            </div>
+
+                            <div class="mt-2" style="display: none;" id="jumlah-wrapper-{{ $row->id_produk }}">
+                                <label for="jumlah{{ $row->id_produk }}" class="label-jumlah text-sm">Jumlah:</label>
+                                <input 
+                                    id="jumlah{{ $row->id_produk }}"
+                                    type="number" 
+                                    class="jumlah-pesanan"
+                                    data-id="{{ $row->id_produk }}"
+                                    min="1" 
+                                    value="1" 
+                                    max="{{ $row->stock_produk }}" 
+                                    data-stok="{{ $row->stock_produk }}"
+                                    style="width: 60px;">
+                            </div>
                         @else
                             <h3 style="color: red;">{{ $row->nama_produk }} - <span style="font-weight: bold;">Stok Habis</span></h3>
                         @endif
@@ -39,10 +43,10 @@
             </div><br>
 
             @csrf
-            <div class="d-flex justify-content-between mt-4">
-                <x-backbutton/>
+            <div class="fixed-btn justify-content-between mt-4">
+                <x-backbutton />
                 <input type="hidden" name="produk_terpilih" id="produkTerpilih" value="">
-                <button type="submit" class="btn btn-danger tombolnext" id="buttonnext">Skip</button>
+                <button type="submit" class="btn-next tombolnext" id="buttonnext">Skip <i class="fas fa-angle-double-right"></i></button>
             </div>            
         </form>
     </div>
@@ -54,37 +58,34 @@
         const checkboxes = document.querySelectorAll(".checklis");
         const buttonnext = document.getElementById("buttonnext");
 
-        buttonnext.innerText = "Skip";
+        buttonnext.innerHTML = 'Skip <i class="fas fa-angle-double-right"></i>';
 
         checkboxes.forEach(checkbox => {
             checkbox.addEventListener("change", function () {
                 const id_produk = this.dataset.id;
-                const jumlahInput = document.querySelector(`.jumlah-pesanan[data-id="${id_produk}"]`);
-                const jumlahLabel = document.querySelector(`.label-jumlah[data-id="${id_produk}"]`);
+                const jumlahWrapper = document.getElementById(`jumlah-wrapper-${id_produk}`);
+                const jumlahInput = document.getElementById(`jumlah${id_produk}`);
 
                 if (this.checked) {
-                    jumlahInput.style.display = "inline-block";
-                    jumlahLabel.style.display = "inline-block";
+                    jumlahWrapper.style.display = "block";
                 } else {
-                    jumlahInput.style.display = "none";
-                    jumlahLabel.style.display = "none";
+                    jumlahWrapper.style.display = "none";
                 }
 
                 const adaYangDipilih = Array.from(checkboxes).some(cb => cb.checked);
-                buttonnext.innerText = adaYangDipilih ? "Next" : "Skip";
+                buttonnext.innerHTML = adaYangDipilih ? 'Next <i class="fas fa-arrow-right"></i>' : 'Skip <i class="fas fa-angle-double-right"></i>';
             });
         });
 
         document.getElementById("produkForm").addEventListener("submit", function (e) {
             const produkDipilih = [];
-            const checkboxes = document.querySelectorAll(".checklis");
-            
-            for (let checkbox of checkboxes) {
+
+            checkboxes.forEach(checkbox => {
                 if (checkbox.checked) {
                     const id = checkbox.dataset.id;
                     const nama = checkbox.dataset.name;
                     const harga = checkbox.dataset.price;
-                    const jumlahInput = document.querySelector(`.jumlah-pesanan[data-id="${id}"]`);
+                    const jumlahInput = document.getElementById(`jumlah${id}`);
                     const jumlah = parseInt(jumlahInput.value);
                     const stok = parseInt(jumlahInput.getAttribute("max"));
                     const card = document.querySelector(`.produkSatuan-item[data-id="${id}"]`);
@@ -104,12 +105,10 @@
                         image_produk: img
                     });
                 }
-            }
+            });
 
-            // Ambil data sebelumnya dari localStorage
             let existingData = JSON.parse(localStorage.getItem("produk_dipilih")) || [];
 
-            // Gabungkan tanpa duplikat (update jumlah jika produk sudah ada)
             for (let baru of produkDipilih) {
                 let index = existingData.findIndex(p => p.id_produk === baru.id_produk);
                 if (index !== -1) {
@@ -119,7 +118,6 @@
                 }
             }
 
-            // Simpan kembali ke localStorage
             if (produkDipilih.length > 0) {
                 localStorage.setItem("produk_dipilih", JSON.stringify(existingData));
                 alert("Produk berhasil ditambahkan ke keranjang.");

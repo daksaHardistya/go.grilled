@@ -1,5 +1,5 @@
-<button type="button" onclick="goBackWithRefresh()" class="btn-secondary">
-    Kembali
+<button type="button" onclick="goBackWithRefresh()" class="btn-secondary relative-btn">
+<i class="fas fa-arrow-left"></i> Back
 </button>
 
 <script>
