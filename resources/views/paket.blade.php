@@ -62,6 +62,7 @@
                 <x-backbutton />
                 <button type="button" class="btn-next tambahpaket" id="tambahpaket" style="display:none;">Next <i class="fas fa-arrow-right"></i></button>
             </div>
+            <x-contact></x-contact>
         </form>
     </div>
 </x-layoute>

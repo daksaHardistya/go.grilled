@@ -29,17 +29,17 @@
 
         <!-- Metode Pembayaran -->
         <div class="payment-method mb-6">
-        <h3 class="font-semibold mb-2">Pilih Metode Pembayaran:</h3>
-        <div class="radio-group">
-            <label>
-            <input id="cash" class="radio" type="radio" name="payment-method" value="Cash">
-            Cash <i class="fas fa-money-bill-wave"></i>
-            </label>
-            <label>
-            <input id="transfer" class="radio" type="radio" name="payment-method" value="Transfer Bank">
-            Transfer Bank <i class="fas fa-university"></i>
-            </label>
-        </div>
+            <h3 class="font-semibold mb-2">Pilih Metode Pembayaran:</h3>
+            <div class="radio-group">
+                <label>
+                    <input id="cash" class="radio" type="radio" name="payment-method" value="Cash">
+                    Cash <i class="fas fa-money-bill-wave"></i>
+                </label>
+                <label>
+                    <input id="transfer" class="radio" type="radio" name="payment-method" value="Transfer Bank">
+                    Transfer Bank <i class="fas fa-university"></i>
+                </label>
+            </div>
         </div><br>
         <!-- Upload Bukti Transfer -->
         <div id="upload-section" class="upload-section mb-6" style="display: none;">
@@ -48,18 +48,21 @@
             <h6>Bank BRI: 1122334455 a.n. Go Grilled</h6>
             <p>*Pastikan untuk menyimpan dan mengunggah bukti transfer Anda.</p>
             <h5 class="text-black font-bold mb-2">Upload Bukti Transfer</h3>
-            <input type="file" id="proof-upload" name="bukti_pembayaran" accept=".jpg,.jpeg,.png,.pdf" class="block mt-2" value="File belum diupload">
+                <input type="file" id="proof-upload" name="bukti_pembayaran" accept=".jpg,.jpeg,.png,.pdf"
+                    class="block mt-2" value="File belum diupload">
         </div>
 
         <!-- Tombol Aksi -->
         <div class="flex justify-between mt-4">
-            <x-backbutton/>
-            <button id="confirm-button" class="button-confirm" style="display: none;">Place Order <i class="fas fa-check-circle mr-2"></i></button>
+            <x-backbutton />
+            <button id="confirm-button" class="button-confirm" style="display: none;">Place Order <i
+                    class="fas fa-check-circle mr-2"></i></button>
         </div>
+        <x-contact></x-contact>
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             const customerData = JSON.parse(localStorage.getItem('customerData')) || {};
             const orderPaket = JSON.parse(localStorage.getItem('paket_dipilih')) || [];
             const orderProduk = JSON.parse(localStorage.getItem('produk_dipilih')) || [];
@@ -119,14 +122,15 @@
 
 
             radios.forEach(radio => {
-                radio.addEventListener('change', function () {
+                radio.addEventListener('change', function() {
                     tipePembayaran = this.value;
                     localStorage.setItem("tipe_pembayaran", tipePembayaran);
                     tipePembayaranSpan.innerText = tipePembayaran;
 
                     if (this.id === "transfer") {
                         uploadSection.style.display = "block";
-                    } if (this.id === "cash") {
+                    }
+                    if (this.id === "cash") {
                         uploadSection.style.display = "none";
                         localStorage.setItem("bukti_pembayaran", "Cash");
                         confirmButton.style.display = "inline-block";
@@ -136,7 +140,7 @@
                 });
             });
 
-            proofInput.addEventListener('change', function () {
+            proofInput.addEventListener('change', function() {
                 const file = this.files[0];
                 if (file) uploadBuktiTf(file);
             });
@@ -146,32 +150,33 @@
                 formData.append('bukti_pembayaran', file);
 
                 fetch('/upload-bukti', {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: formData
-                })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.success) {
-                        localStorage.setItem("bukti_pembayaran", data.fileName);
-                        alert("Bukti transfer berhasil diupload.");
-                        confirmButton.style.display = "inline-block";
-                    } else {
-                        alert("Gagal mengupload bukti transfer.");
-                    }
-                })
-                .catch(error => {
-                    console.error("Upload Error:", error);
-                    alert("Terjadi kesalahan saat upload bukti.");
-                });
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content')
+                        },
+                        body: formData
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+                            localStorage.setItem("bukti_pembayaran", data.fileName);
+                            alert("Bukti transfer berhasil diupload.");
+                            confirmButton.style.display = "inline-block";
+                        } else {
+                            alert("Gagal mengupload bukti transfer.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Upload Error:", error);
+                        alert("Terjadi kesalahan saat upload bukti.");
+                    });
             }
 
-            confirmButton.addEventListener('click', function () {
-                buktiPembayaran = tipePembayaran === 'Transfer Bank'
-                    ? (localStorage.getItem("bukti_pembayaran") || 'Belum diupload')
-                    : 'Cash';
+            confirmButton.addEventListener('click', function() {
+                buktiPembayaran = tipePembayaran === 'Transfer Bank' ?
+                    (localStorage.getItem("bukti_pembayaran") || 'Belum diupload') :
+                    'Cash';
 
                 const payload = {
                     pelanggan: {
@@ -197,35 +202,53 @@
                 };
 
                 fetch('/simpanTransaksi', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify(payload)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Notifikasi WhatsApp
-                    const adminPhone = '085777115304';
-                    const fonnteToken = 'cFh96YKghJi8GQkN3LFN';
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                .getAttribute('content')
+                        },
+                        body: JSON.stringify(payload)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Notifikasi WhatsApp
+                        const adminPhone = '085777115304';
+                        const fonnteToken = 'cFh96YKghJi8GQkN3LFN';
 
-                    const pesanAdmin = `Order Baru Masuk!\n\n Nama: ${customerData.nama}\n Telepon: ${customerData.nomor_tlp}\n Alamat: ${customerData.alamat}\n Total: Rp ${totalHarga.toLocaleString('id-ID')}\n Pembayaran: ${tipePembayaran}\n Nomor Transaksi: ${nomorPembayaran} \n`;
+                        const pesanAdmin = `🛒 *Order Baru Masuk!*
+                                            👤 *Data Pelanggan:*
+                                            • Nama      : ${customerData.nama}
+                                            • Telepon   : ${customerData.nomor_tlp}
+                                            • Alamat    : ${customerData.alamat}
+                                            📦 *Rincian Belanjaan:*
+                                           *Produk:*\n ${orderProduk.map((item, i) => `• ${i + 1}. ${item.nama_produk} x${item.jumlah_produk} - Rp ${item.harga_produk.toLocaleString('id-ID')}`).join('\n')}
+                                            ${orderPaket.length > 0 ? `\n🎁 
+                                                        *Paket:* \n${orderPaket.map((item, i) => `• ${i + 1}. ${item.nama_paket} x${item.jumlah_paket} - Rp ${item.harga_paket.toLocaleString('id-ID')}`).join('\n')}` : ''}
+                                            💳 *Pembayaran:* ${tipePembayaran}
+                                            🧾 *Nomor Transaksi:* ${nomorPembayaran}
+                                            💰 *Total:* Rp ${totalHarga.toLocaleString('id-ID')}
+                                            `;
 
-                    fetch("https://api.fonnte.com/send", {
-                        method: "POST",
-                        headers: { "Authorization": fonnteToken },
-                        body: new URLSearchParams({ target: adminPhone, message: pesanAdmin })
+                        fetch("https://api.fonnte.com/send", {
+                            method: "POST",
+                            headers: {
+                                "Authorization": fonnteToken
+                            },
+                            body: new URLSearchParams({
+                                target: adminPhone,
+                                message: pesanAdmin
+                            })
+                        });
+
+                        alert(" Pesanan berhasil dilakukan, tunggu konfirmasi dari admin kami");
+                        window.location.href = "/invoice"; // Redirect ke invoice / success page
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        alert("Gagal menyimpan transaksi.");
                     });
-
-                    alert(" Pesanan berhasil dilakukan, tunggu konfirmasi dari admin kami");
-                    window.location.href = "/invoice"; // Redirect ke invoice / success page
-                })
-                .catch(error => {
-                    console.error("Error:", error);
-                    alert("Gagal menyimpan transaksi.");
-                });
             });
         });
     </script>

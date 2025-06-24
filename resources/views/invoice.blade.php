@@ -1,27 +1,27 @@
 <x-layoute>
     <div class="container my-5">
-        <div class="card shadow-lg rounded-lg">
+        <div class="card-invoice shadow-lg rounded-lg">
             <div class="card-body">
-                <div class="tittle text-center mb-5">
-                    <h1 class="h3 text-danger">INVOICE PEMESANAN</h1>
-                    <h1>GO.GRILLED SINGARAJA</h1>
-                    <p class="text-muted">Terima kasih atas pesanan Anda</p>
+                <div class="tittle-invoice text-center">
+                    <h2 class="text-danger">INVOICE PEMESANAN</h1>
+                        <h1>GO.GRILLED SINGARAJA</h1>
+                        <p class="text-muted">Terima kasih atas pesanan Anda</p>
                 </div>
 
                 <!-- Informasi Pelanggan -->
                 <div class="data-pelanggan mb-4">
                     <h2 class="h5 text-dark border-bottom pb-2 mb-4">Informasi Pelanggan</h2>
-                    <p><strong>Nama:</strong> <span id="customer-name">-</span></p>
-                    <p><strong>Alamat:</strong> <span id="customer-address">-</span></p>
-                    <p><strong>No. Telepon:</strong> <span id="customer-phone">-</span></p>
-                    <p><strong>Email:</strong> <span id="customer-email">-</span></p>
+                    <div><strong>Nama:</strong> <span id="customer-name">-</span></div>
+                    <div><strong>Alamat:</strong> <span id="customer-address">-</span></div>
+                    <div><strong>No. Telepon:</strong> <span id="customer-phone">-</span></div>
+                    <div><strong>Email:</strong> <span id="customer-email">-</span></div>
                 </div>
 
                 <!-- Detail Transaksi -->
                 <div class="detail-transaksi mb-4">
                     <h2 class="h5 text-dark border-bottom pb-2 mb-4">Detail Pembayaran</h2>
-                    <p><strong>Nomor Transaksi:</strong> <span id="nomor-pembayaran">-</span></p>
-                    <p><strong>Metode Pembayaran:</strong> <span id="tipe-pembayaran">-</span></p>
+                    <div><strong>Nomor Transaksi:</strong> <span id="nomor-pembayaran">-</span></div>
+                    <div><strong>Metode Pembayaran:</strong> <span id="tipe-pembayaran">-</span></div>
                 </div>
 
                 <!-- Daftar Pesanan -->
@@ -38,7 +38,8 @@
                         <tfoot>
                             <tr class="font-weight-bold">
                                 <td class="text-right">Total:</td>
-                                <td class="text-right">Rp <span id="total-amount">0</span></td>
+                                <td class="text-right">Rp. <span style="font-size: medium" id="total-amount">0</span>
+                                </td>
                             </tr>
                         </tfoot>
                     </table>
@@ -46,9 +47,13 @@
 
                 <!-- Tombol Selesai dan Download PDF -->
                 <div class="text-center mt-4">
-                    <button id="finish-button" class="btn-sukses text-white px-4 py-2 rounded transition duration-200" >Selesai</button>
-                    <button id="download-pdf" class="btn btn-danger mx-2">Download PDF</button>
+                    <button id="download-pdf" class="btn btn-danger mx-2"><i class="fas fa-file-pdf"></i> Download
+                        PDF</button>
+                    <button id="finish-button"
+                        class="btn-sukses text-white px-4 py-2 rounded transition duration-200"><i
+                            class="fas fa-check-circle"></i> Selesai</button>
                 </div>
+                <x-contact></x-contact>
             </div>
         </div>
     </div>
@@ -57,7 +62,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             const customerData = JSON.parse(localStorage.getItem('customerData')) || {};
             const orderPaket = JSON.parse(localStorage.getItem('paket_dipilih')) || [];
             const orderProduk = JSON.parse(localStorage.getItem('produk_dipilih')) || [];
@@ -72,7 +77,7 @@
             document.getElementById('tipe-pembayaran').textContent = tipePembayaran;
 
             const orderTable = document.getElementById('order-details');
-            orderTable.innerHTML = '';  // Bersihkan dulu isinya
+            orderTable.innerHTML = ''; // Bersihkan dulu isinya
 
             let totalHarga = 0;
 
@@ -83,7 +88,7 @@
                 tdNama.textContent = namaItem;
                 const tdSubtotal = document.createElement('td');
                 tdSubtotal.classList.add('text-right');
-                tdSubtotal.textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
+                tdSubtotal.textContent = `Rp. ${subtotal.toLocaleString('id-ID')}`;
                 tr.appendChild(tdNama);
                 tr.appendChild(tdSubtotal);
                 return tr;
@@ -104,15 +109,15 @@
             document.getElementById('total-amount').textContent = totalHarga.toLocaleString('id-ID');
 
             // Download PDF
-            document.getElementById("download-pdf").addEventListener("click", function () {
+            document.getElementById("download-pdf").addEventListener("click", function() {
                 // const element = document.querySelector(".card-body");
-                const element1 = document.querySelector(".tittle");
+                const element1 = document.querySelector(".tittle-invoice");
                 const element2 = document.querySelector(".data-pelanggan");
                 const element3 = document.querySelector(".detail-transaksi");
                 const element4 = document.querySelector(".daftar-pesanan");
                 const element5 = document.querySelector(".table");
-                const element6 = document.querySelector("thead");
-                const element7 = document.querySelector("tfoot");
+                // const element6 = document.querySelector("thead");
+                // const element7 = document.querySelector("tfoot");
 
                 //menggabungkan semua elemen yang ingin diunduh
                 const combinedElement = document.createElement("div");
@@ -121,26 +126,35 @@
                 combinedElement.appendChild(element3.cloneNode(true));
                 combinedElement.appendChild(element4.cloneNode(true));
                 combinedElement.appendChild(element5.cloneNode(true));
-                combinedElement.appendChild(element6.cloneNode(true));
-                combinedElement.appendChild(element7.cloneNode(true));
+                // combinedElement.appendChild(element6.cloneNode(true));
+                // combinedElement.appendChild(element7.cloneNode(true));
 
 
 
                 // Menggunakan html2pdf untuk mengunduh PDF
                 const element = combinedElement;
                 const opt = {
-                                margin:       [-2, 0.5, -2, 0.5], // [top, right, bottom, left] dalam satuan inci
-                                filename:     'invoice_gogrilled.pdf',
-                                image:        { type: 'jpeg', quality: 0.98 },
-                                html2canvas:  { scale: 2 },
-                                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
-                            };
+                    margin: [-1, 0.5, -1, 0.5], // [top, right, bottom, left] dalam satuan inci
+                    filename: 'invoice_gogrilled.pdf',
+                    image: {
+                        type: 'jpeg',
+                        quality: 0.98
+                    },
+                    html2canvas: {
+                        scale: 2
+                    },
+                    jsPDF: {
+                        unit: 'in',
+                        format: 'a4',
+                        orientation: 'portrait'
+                    }
+                };
 
                 html2pdf().set(opt).from(element).save();
             });
 
             // Tombol selesai
-            document.getElementById("finish-button").addEventListener("click", function () {
+            document.getElementById("finish-button").addEventListener("click", function() {
                 localStorage.removeItem('customerData');
                 localStorage.removeItem('paket_dipilih');
                 localStorage.removeItem('produk_dipilih');
@@ -149,6 +163,5 @@
                 window.location.href = '/';
             });
         });
-
     </script>
 </x-layoute>

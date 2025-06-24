@@ -5,9 +5,10 @@
         <h1 class="text-3xl font-bold text-gray-800 mb-6">Daftar Order</h1>
         <form method="GET" class="mb-6 flex items-center gap-4">
             <label for="bulan" class="text-sm font-medium text-gray-700">Filter Bulan:</label>
-            <input type="month" name="bulan" id="bulan" value="{{ request('bulan') }}" class="border rounded px-3 py-2 shadow-sm">
+            <input type="month" name="bulan" id="bulan" value="{{ request('bulan') }}"
+                class="border rounded px-3 py-2 shadow-sm">
             <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Filter</button>
-        </form>        
+        </form>
         <div class="bg-white shadow-lg rounded-lg overflow-hidden">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-red-600 text-white">
@@ -27,11 +28,12 @@
                                 {{ $order->nomor_transaksi }}
                             </td>
                             <td class="px-6 py-4 font-medium text-gray-800">
-                                <a href="{{ route('admin.pelanggan.detail', ['id' => $order->id_pel]) }}" class="text-blue-600 hover:underline">
+                                <a href="{{ route('admin.pelanggan.detail', ['id' => $order->id_pel]) }}"
+                                    class="text-blue-600 hover:underline">
                                     {{ $order->data_pelanggan->nama_pel ?? '-' }}
                                 </a>
                             </td>
-                            {{-- Pesanan --}}                                                          
+                            {{-- Pesanan --}}
                             <td class="px-6 py-4 text-gray-600">
                                 <ul class="list-disc ml-5 space-y-1">
                                     {{-- Paket --}}
@@ -44,7 +46,8 @@
                                     {{-- Produk --}}
                                     @foreach ($order->order_produk as $produk)
                                         @if ($produk->produk)
-                                            <li>{{ $produk->produk->nama_produk }} x{{ $produk->jumlah_orderProduk }}</li>
+                                            <li>{{ $produk->produk->nama_produk }} x{{ $produk->jumlah_orderProduk }}
+                                            </li>
                                         @endif
                                     @endforeach
                                 </ul>
@@ -70,7 +73,8 @@
                                     @endphp
 
                                     @foreach (array_keys($statusColors) as $status)
-                                        <form action="{{ route('admin.order.update', ['id' => $order->id_order]) }}" method="POST">
+                                        <form action="{{ route('admin.order.update', ['id' => $order->id_order]) }}"
+                                            method="POST">
                                             @csrf
                                             <input type="hidden" name="status_order" value="{{ $status }}">
                                             <button type="submit"
@@ -83,7 +87,7 @@
 
                                 </div>
                             </td>
-                                                    
+
                         </tr>
                     @empty
                         <tr>

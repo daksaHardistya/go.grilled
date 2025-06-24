@@ -16,9 +16,8 @@ Route::post('/upload-bukti', [custommerController::class, 'uploadBuktiTf'])->nam
 Route::get('/invoice', [custommerController::class, 'showInvoice'])->name('invoice.show');
 Route::post('/simpanTransaksi', [custommerController::class, 'simpanOrderan']);
 Route::get('/cart', [custommerController::class, 'showCart'])->name('cart.show');
-// Route::get('/invoice/{orderId}', [custommerController::class, 'showInvoice'])->name('invoice.show');
-// Route::post('/admin/order/update-status-wa/{id}', [adminController::class, 'updateStatusViaWa'])->name('admin.order.updateStatusWa');
-// Redirect langsung /admin ke dashboard
+Route::post('/cek-nomor-wa', [CustommerController::class, 'cekNomorWA']);
+
 Route::get('/admin', function () {
     return redirect()->route('admin.login');
 });
@@ -52,6 +51,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/produk/{id}/delete', [AdminController::class, 'produkDelete'])->name('produk.delete');
         Route::post('/produk/update-stock/{id}', [AdminController::class, 'updateStockProduk'])->name('produk.stock.update');
         Route::get('/pembukuan', [AdminController::class, 'pembukuanShow'])->name('pembukuan.show');
+        
         // Route::get('/pembukuan/create', [AdminController::class, 'pembukuanCreate'])->name('pembukuan.create');
     });
 });

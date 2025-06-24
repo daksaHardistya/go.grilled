@@ -36,6 +36,38 @@
                 <p class="text-sm text-gray-400 mt-1">Penjualan bulan ini</p>
             </div>
         </div>
+        <!-- Statistik Order Berdasarkan Status -->
+        <div class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-7 gap-4 mb-8">
+            <div class="bg-white border border-yellow-100 shadow rounded-xl p-4 text-center">
+                <p class="text-sm text-yellow-600 font-semibold">Pending</p>
+                <p class="text-2xl font-bold text-yellow-500">{{ $statusCounts['pending'] ?? 0 }}</p>
+            </div>
+            <div class="bg-white border border-orange-100 shadow rounded-xl p-4 text-center">
+                <p class="text-sm text-orange-600 font-semibold">Proses</p>
+                <p class="text-2xl font-bold text-orange-500">{{ $statusCounts['proses'] ?? 0 }}</p>
+            </div>
+            <div class="bg-white border border-purple-100 shadow rounded-xl p-4 text-center">
+                <p class="text-sm text-purple-600 font-semibold">Dikirim</p>
+                <p class="text-2xl font-bold text-purple-500">{{ $statusCounts['dikirim'] ?? 0 }}</p>
+            </div>
+            <div class="bg-white border border-teal-100 shadow rounded-xl p-4 text-center">
+                <p class="text-sm text-teal-600 font-semibold">Booked</p>
+                <p class="text-2xl font-bold text-teal-500">{{ $statusCounts['booked'] ?? 0 }}</p>
+            </div>
+            <div class="bg-white border border-blue-100 shadow rounded-xl p-4 text-center">
+                <p class="text-sm text-blue-600 font-semibold">Expired</p>
+                <p class="text-2xl font-bold text-blue-500">{{ $statusCounts['expired'] ?? 0 }}</p>
+            </div>
+            <div class="bg-white border border-green-100 shadow rounded-xl p-4 text-center">
+                <p class="text-sm text-green-600 font-semibold">Selesai</p>
+                <p class="text-2xl font-bold text-green-500">{{ $statusCounts['selesai'] ?? 0 }}</p>
+            </div>
+            <div class="bg-white border border-red-100 shadow rounded-xl p-4 text-center">
+                <p class="text-sm text-red-600 font-semibold">Batal</p>
+                <p class="text-2xl font-bold text-red-500">{{ $statusCounts['batal'] ?? 0 }}</p>
+            </div>
+        </div>
+
         <!-- Cuplikan Order Terbaru -->
         <div class="bg-white rounded-2xl shadow-lg p-6">
             <h2 class="text-xl font-bold text-gray-700 mb-4">🕒 Order Terbaru</h2>
@@ -55,7 +87,7 @@
                             <tr class="border-t hover:bg-gray-50">
                                 <td class="py-3 px-4">{{ $order->nomor_transaksi }}</td>
                                 <td class="py-2 px-4">
-                                    @if($order->data_pelanggan)
+                                    @if ($order->data_pelanggan)
                                         <span class="text-gray-700">{{ $order->data_pelanggan->nama_pel }}</span>
                                     @else
                                         <span class="text-gray-400">-</span>
@@ -70,21 +102,30 @@
                                 <td class="py-3 px-4">
                                     @php $status = $order->status_order; @endphp
                                     @if ($status === 'pending')
-                                        <span class="px-3 py-1 rounded-full text-xs bg-yellow-100 text-yellow-700">Menunggu Pembayaran</span>
+                                        <span
+                                            class="px-3 py-1 rounded-full text-xs bg-yellow-100 text-yellow-700">Menunggu
+                                            Pembayaran</span>
                                     @elseif ($status === 'proses')
-                                        <span class="px-3 py-1 rounded-full text-xs bg-orange-100 text-orange-700">Diproses</span>
+                                        <span
+                                            class="px-3 py-1 rounded-full text-xs bg-orange-100 text-orange-700">Diproses</span>
                                     @elseif ($status === 'dikirim')
-                                        <span class="px-3 py-1 rounded-full text-xs bg-purple-100 text-purple-700">Dikirim</span>
+                                        <span
+                                            class="px-3 py-1 rounded-full text-xs bg-purple-100 text-purple-700">Dikirim</span>
                                     @elseif ($status === 'booked')
-                                        <span class="px-3 py-1 rounded-full text-xs bg-teal-100 text-teal-700">Sedang Digunakan</span>
+                                        <span class="px-3 py-1 rounded-full text-xs bg-teal-100 text-teal-700">Sedang
+                                            Digunakan</span>
                                     @elseif ($status === 'expired')
-                                        <span class="px-3 py-1 rounded-full text-xs bg-blue-100 text-blue-700">Belum Dikembalikan</span>
+                                        <span class="px-3 py-1 rounded-full text-xs bg-blue-100 text-blue-700">Belum
+                                            Dikembalikan</span>
                                     @elseif ($status === 'selesai')
-                                        <span class="px-3 py-1 rounded-full text-xs bg-green-100 text-green-700">Selesai</span>
+                                        <span
+                                            class="px-3 py-1 rounded-full text-xs bg-green-100 text-green-700">Selesai</span>
                                     @elseif ($status === 'batal')
-                                        <span class="px-3 py-1 rounded-full text-xs bg-red-100 text-red-700">Dibatalkan</span>
+                                        <span
+                                            class="px-3 py-1 rounded-full text-xs bg-red-100 text-red-700">Dibatalkan</span>
                                     @else
-                                        <span class="px-3 py-1 rounded-full text-xs bg-gray-100 text-gray-700">{{ ucfirst($status) }}</span>
+                                        <span
+                                            class="px-3 py-1 rounded-full text-xs bg-gray-100 text-gray-700">{{ ucfirst($status) }}</span>
                                     @endif
                                 </td>
                             </tr>

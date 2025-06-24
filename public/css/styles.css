@@ -8,7 +8,29 @@ body {
   padding-bottom: 80px; /* tambahkan ruang untuk footer */
 }
 .bubble-icon {
-  width: 50px !important;
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  z-index: 1000;
+  cursor: pointer;
+  background-color: #04a013;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.bubble-icon:hover {
+  background-color: #16a34a;
+  transform: scale(1.1);
+}
+.bubble-icon img {
+  width: 50px;
+  height: 50px;
 }
 
 /* css untuk button */
@@ -325,10 +347,6 @@ h1 {
   color: #000;
 }
 
-.card:hover {
-  transform: scale(1.05);
-}
-
 .padding-card {
   padding: 20px;
   border: 1px solid #000;
@@ -622,14 +640,26 @@ input[type='checkbox'].checklis {
 }
 
 /* INVOICE PAGE */
-/* Hilangkan efek hover pada kartu */
-.card:hover,
-.card:focus,
-.card:active {
-  transform: none !important;
-  box-shadow: none !important;
+.card-invoice {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
-
+.tittle-invoice {
+  text-align: center;
+  color: #000000; /* Hitam */
+  font-weight: bold;
+  border-bottom: red 5px solid;
+  font-family: 'montserrat', sans-serif;
+  margin-bottom: 20px;
+}
+.tittle-invoice h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
 .btn-sukses {
   text-decoration: none;
   background-color: #28a745; /* Hijau segar */
@@ -670,6 +700,56 @@ table.table-bordered thead tr {
 
 table.table-bordered tfoot tr {
   font-weight: 700;
+}
+@media print {
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .invoice-container {
+    font-family: 'Arial', sans-serif;
+    font-size: 12px;
+    padding: 20px;
+    margin: 0;
+    color: #000;
+  }
+
+  .card-invoice {
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .table th,
+  .table td {
+    border: 1px solid #000 !important;
+    padding: 8px !important;
+    text-align: left;
+  }
+
+  .table th {
+    background-color: #f2f2f2 !important;
+  }
+
+  .text-right {
+    text-align: right !important;
+  }
+
+  .text-center {
+    text-align: center !important;
+  }
+
+  .btn,
+  #download-pdf,
+  #finish-button,
+  x-contact {
+    display: none !important;
+  }
 }
 
 /* CSS CART */

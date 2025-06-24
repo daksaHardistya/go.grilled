@@ -7,23 +7,24 @@
 
             <label class="label-form" for="nama">Nama:</label>
             <p>*Masukkan nama yang sesuai</p>
-            <input class="input-place" id="nama_pel" type="text" name="nama" placeholder="Tulis nama lengkap kamu.." required><br><br>
+            <input class="input-place" id="nama_pel" type="text" name="nama" placeholder="Tulis nama lengkap kamu.."
+                required><br><br>
 
             <label class="label-form" for="no-telp">WhatsApp:</label>
             <p>*Masukkan nomor WhatsApp yang benar</p>
-            <input class="input-place" id="nomor_tlp" type="tel" name="no-telp"
-                placeholder="Contoh: 081234567890"
-                pattern="^08[0-9]{8,11}$"
-                title="Nomor harus dimulai dengan 08 dan memiliki 10 hingga 13 digit angka"
+            <input class="input-place" id="nomor_tlp" type="tel" name="no-telp" placeholder="Contoh: 081234567890"
+                pattern="^08[0-10]{8,11}$" title="Nomor harus dimulai dengan 08 dan memiliki 11 hingga 13 digit angka"
                 required><br><br>
 
             <label class="label-form" for="email">Email:</label>
             <p>*Masukkan email yang benar</p>
-            <input class="input-place" id="email_pel" type="email" name="email" placeholder="Contoh: nama@email.com" required><br><br>
+            <input class="input-place" id="email_pel" type="email" name="email" placeholder="Contoh: nama@email.com"
+                required><br><br>
 
             <label class="label-form" for="alamat">Alamat:</label>
             <p>*Masukkan alamat lengkap untuk pengiriman</p>
-            <input class="input-place" id="alamat_pel" type="text" name="alamat" placeholder="Tulis alamat lengkap.." required><br><br>
+            <input class="input-place" id="alamat_pel" type="text" name="alamat"
+                placeholder="Tulis alamat lengkap.." required><br><br>
 
             <label class="label-form" for="pesanan">Pesanan:</label>
             <li id="checkbox-list"></li>
@@ -32,14 +33,16 @@
             <h4>Total: Rp. <span id="total-amount">0</span></h4>
             <div class="flex justify-between mt-4">
                 <x-backbutton />
-                <button class="btn-next right-btn" type="button" id="submit-button">Next <i class="fas fa-arrow-right"></i></button>
+                <button class="btn-next right-btn" type="button" id="submit-button">Next <i
+                        class="fas fa-arrow-right"></i></button>
             </div>
         </form>
     </div>
+    <x-contact></x-contact>
 </x-layoute>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function() {
         const savedData = JSON.parse(localStorage.getItem("customerData")) || {};
         document.getElementById("nama_pel").value = savedData.nama || "";
         document.getElementById("nomor_tlp").value = savedData.nomor_tlp || "";

@@ -47,7 +47,8 @@
                 <x-backbutton />
                 <input type="hidden" name="produk_terpilih" id="produkTerpilih" value="">
                 <button type="submit" class="btn-next tombolnext" id="buttonnext">Skip <i class="fas fa-angle-double-right"></i></button>
-            </div>            
+            </div> 
+            <x-contact></x-contact>           
         </form>
     </div>
 </x-layoute>
