@@ -89,12 +89,37 @@
 
     function submitOrder() {
         const nomor = document.getElementById("nomor_tlp").value.trim();
-        if (!isValidNomor(nomor)) {
-            alert("Nomor WhatsApp tidak valid!\nHarus dimulai dengan 08 dan terdiri dari 10 hingga 13 digit angka.");
+        const nama = document.getElementById("nama_pel").value.trim();
+        const email = document.getElementById("email_pel").value.trim();
+        const alamat = document.getElementById("alamat_pel").value.trim();
+        if (!nomor) {
+            alert("Nomor WhatsApp tidak boleh kosong!");
             document.getElementById("nomor_tlp").focus();
             return;
         }
-
+        if (!nama) {
+            alert("Nama tidak boleh kosong!");
+            document.getElementById("nama_pel").focus();
+            return;
+        }
+        if (!email) {
+            alert("Email tidak boleh kosong!");
+            document.getElementById("email_pel").focus();
+            return;
+        }
+        if (!alamat) {
+            alert("Alamat tidak boleh kosong!");
+            document.getElementById("alamat_pel").focus();
+            return;
+        } else {
+            if (!isValidNomor(nomor)) {
+                alert(
+                    "Nomor WhatsApp tidak valid!\nHarus dimulai dengan 08 dan terdiri dari 10 hingga 13 digit angka."
+                );
+                document.getElementById("nomor_tlp").focus();
+                return;
+            }
+        }
         simpanData();
         alert("Pesanan sudah terkirim!");
         window.location.href = "/metodePembayaran";
