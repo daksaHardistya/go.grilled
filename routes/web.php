@@ -35,22 +35,22 @@ Route::prefix('admin')
         Route::middleware('auth:admin')->group(function () {
             Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
             Route::get('/order', [AdminController::class, 'orderShow'])->name('order.show');
-            Route::post('/order/{id}/update', [AdminController::class, 'orderUpdate'])->name('order.update');
+            Route::put('/order/{id}/update', [AdminController::class, 'orderUpdate'])->name('order.update');
             Route::get('/pelanggan/{id}', [AdminController::class, 'pelangganDetail'])->name('pelanggan.detail');
             Route::get('/produk', [AdminController::class, 'produkShow'])->name('produk.show');
             Route::get('/paket', [AdminController::class, 'paketShow'])->name('paket.show');
             Route::get('/paket/create', [AdminController::class, 'paketCreate'])->name('paket.create');
-            Route::post('/paket/store', [AdminController::class, 'paketStore'])->name('paket.store');
+            Route::put('/paket/store', [AdminController::class, 'paketStore'])->name('paket.store');
             Route::get('/paket/{id_paket}/edit', [AdminController::class, 'paketEdit'])->name('paket.edit');
-            Route::post('/paket/{id}/update', [AdminController::class, 'paketUpdate'])->name('paket.update');
+            Route::put('/paket/{id}/update', [AdminController::class, 'paketUpdate'])->name('paket.update');
             Route::get('/paket/{id}/delete', [AdminController::class, 'paketDelete'])->name('paket.delete');
-            Route::post('/paket/update-stock/{id}', [AdminController::class, 'updateStockPaket'])->name('paket.stock.update');
+            Route::put('/paket/update-stock/{id}', [AdminController::class, 'updateStockPaket'])->name('paket.stock.update');
             Route::get('/produk/create', [AdminController::class, 'produkCreate'])->name('produk.create');
             Route::post('/produk/store', [AdminController::class, 'produkStore'])->name('produk.store');
             Route::get('/produk/{id}/edit', [AdminController::class, 'produkEdit'])->name('produk.edit');
-            Route::post('/produk/{id}/update', [AdminController::class, 'produkUpdate'])->name('produk.update');
+            Route::put('/produk/{id}/update', [AdminController::class, 'produkUpdate'])->name('produk.update');
             Route::get('/produk/{id}/delete', [AdminController::class, 'produkDelete'])->name('produk.delete');
-            Route::post('/produk/update-stock/{id}', [AdminController::class, 'updateStockProduk'])->name('produk.stock.update');
+            Route::put('/produk/update-stock/{id}', [AdminController::class, 'updateStockProduk'])->name('produk.stock.update');
             Route::get('/pembukuan', [AdminController::class, 'pembukuanShow'])->name('pembukuan.show');
 
         });

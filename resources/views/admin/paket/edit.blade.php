@@ -4,6 +4,7 @@
         <h2 class="text-2xl font-semibold mb-4 text-gray-800">Edit Paket</h2>
         <form action="{{ route('admin.paket.update', $paket->id_paket) }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <div class="space-y-4">
                 <div>
                     <label class="block text-gray-700">Nama Paket</label>

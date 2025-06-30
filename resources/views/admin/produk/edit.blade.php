@@ -4,6 +4,7 @@
         <h2 class="text-2xl font-semibold mb-4 text-gray-800">Edit produk</h2>
         <form action="{{ route('admin.produk.update', $produk->id_produk) }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <div class="space-y-4">
                 <div>
                     <label class="block text-gray-700">Nama produk</label>

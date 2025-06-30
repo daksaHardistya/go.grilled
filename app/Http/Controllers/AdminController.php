@@ -11,6 +11,7 @@ use App\Models\tabel_orderProduk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -229,7 +230,7 @@ class AdminController extends Controller
     }
 
     // Update Paket
-    public function paketUpdate(Request $request, $id)
+     public function paketUpdate(Request $request, $id)
     {
         $paket = menu_paket::findOrFail($id);
         $data = $request->validate([
@@ -238,11 +239,15 @@ class AdminController extends Controller
             'kategori_paket' => 'required',
             'harga_paket' => 'required|numeric',
             'stock_paket' => 'required|integer',
-            'image_paket' => 'nullable|image|',
+            'image_paket' => 'nullable|image',
         ]);
 
         if ($request->hasFile('image_paket')) {
-            $data['image_paket'] = $request->file('image_paket')->store('paket', 'public');
+            // Hapus gambar lama jika ada
+            if ($paket->image_paket && Storage::disk('public')->exists($paket->image_paket)) {
+                Storage::disk('public')->delete($paket->image_paket);
+            }
+
             $data['image_paket'] = $request->file('image_paket')->store('menu_paket', 'public');
         }
 
@@ -254,10 +259,17 @@ class AdminController extends Controller
     public function paketDelete($id)
     {
         $paket = menu_paket::findOrFail($id);
+
+        // Hapus gambar jika ada
+        if ($paket->image_paket && Storage::disk('public')->exists($paket->image_paket)) {
+            Storage::disk('public')->delete($paket->image_paket);
+        }
+
         $paket->delete();
         return redirect()->route('admin.paket.show')->with('success', 'Paket berhasil dihapus');
     }
 
+    // Update stok paket secara langsung
     public function updateStockPaket(Request $request, $id)
     {
         $paket = menu_paket::findOrFail($id);
