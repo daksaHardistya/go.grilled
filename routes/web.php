@@ -52,7 +52,10 @@ Route::prefix('admin')
             Route::get('/produk/{id}/delete', [AdminController::class, 'produkDelete'])->name('produk.delete');
             Route::post('/produk/update-stock/{id}', [AdminController::class, 'updateStockProduk'])->name('produk.stock.update');
             Route::get('/pembukuan', [AdminController::class, 'pembukuanShow'])->name('pembukuan.show');
+<<<<<<< HEAD
 
             // Route::get('/pembukuan/create', [AdminController::class, 'pembukuanCreate'])->name('pembukuan.create');
+=======
+>>>>>>> baa8f993cd06be0ba93b4fd6167a54cdf6dda904
         });
     });

@@ -242,7 +242,11 @@ class AdminController extends Controller
         ]);
 
         if ($request->hasFile('image_paket')) {
+<<<<<<< HEAD
             $data['image_paket'] = $request->file('image_paket')->store('paket', 'public');
+=======
+            $data['image_paket'] = $request->file('image_paket')->store('menu_paket', 'public');
+>>>>>>> baa8f993cd06be0ba93b4fd6167a54cdf6dda904
         }
 
         $paket->update($data);
