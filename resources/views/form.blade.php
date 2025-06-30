@@ -125,7 +125,7 @@
                 return;
             }
         }
->>>>>>> baa8f993cd06be0ba93b4fd6167a54cdf6dda904
+
         simpanData();
         alert("Pesanan sudah terkirim!");
         window.location.href = "/metodePembayaran";
