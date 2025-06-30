@@ -89,14 +89,11 @@
 
     function submitOrder() {
         const nomor = document.getElementById("nomor_tlp").value.trim();
-<<<<<<< HEAD
         if (!isValidNomor(nomor)) {
             alert("Nomor WhatsApp tidak valid!\nHarus dimulai dengan 08 dan terdiri dari 10 hingga 13 digit angka.");
             document.getElementById("nomor_tlp").focus();
             return;
         }
-
-=======
         const nama = document.getElementById("nama_pel").value.trim();
         const email = document.getElementById("email_pel").value.trim();
         const alamat = document.getElementById("alamat_pel").value.trim();

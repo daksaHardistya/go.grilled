@@ -24,11 +24,8 @@
                             @foreach ($paketList as $row)
                                 <div class="col-12 col-md-4">
                                     <div class="card padding-card shadow-sm">
-<<<<<<< HEAD
-                                        <img src="{{ asset('../storage/' . $row->image_paket) }}"
-=======
-                                        <img src="{{ asset('../../storage/' . $row->image_paket) }}"
->>>>>>> baa8f993cd06be0ba93b4fd6167a54cdf6dda904
+                                        <img src="{{ asset('../storage/' . $row->image_paket) }}" <img
+                                            src="{{ asset('../../storage/' . $row->image_paket) }}"
                                             class="card-img-top img-fluid" alt="{{ $row->nama_paket }}">
                                         <div class="card-body d-flex flex-column">
                                             <input type="hidden" class="id_paket" value="{{ $row->id_paket }}">
