@@ -248,7 +248,7 @@
                         📦 *Rincian Belanjaan:*
                         *Produk:*\n ${orderProduk.map((item, i) => `• ${i + 1}. ${item.nama_produk} x${item.jumlah_produk} - Rp ${item.harga_produk.toLocaleString('id-ID')}`).join('\n')}
                         ${orderPaket.length > 0 ? `\n🎁 
-                                                                    *Paket:* \n${orderPaket.map((item, i) => `• ${i + 1}. ${item.nama_paket} x${item.jumlah_paket} - Rp ${item.harga_paket.toLocaleString('id-ID')}`).join('\n')}` : ''}
+                                                                        *Paket:* \n${orderPaket.map((item, i) => `• ${i + 1}. ${item.nama_paket} x${item.jumlah_paket} - Rp ${item.harga_paket.toLocaleString('id-ID')}`).join('\n')}` : ''}
                         
                         💳 *Pembayaran:* ${tipePembayaran}
                         🧾 *Nomor Transaksi:* ${nomorPembayaran}
