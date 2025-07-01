@@ -8,7 +8,6 @@
                         <p class="text-muted">Terima kasih atas pesanan Anda</p>
                 </div>
 
-                <!-- Informasi Pelanggan -->
                 <div class="data-pelanggan mb-4">
                     <h2 class="h5 text-dark border-bottom pb-2 mb-4">Informasi Pelanggan</h2>
                     <div><strong>Nama:</strong> <span id="customer-name">-</span></div>
@@ -17,14 +16,12 @@
                     <div><strong>Email:</strong> <span id="customer-email">-</span></div>
                 </div>
 
-                <!-- Detail Transaksi -->
                 <div class="detail-transaksi mb-4">
                     <h2 class="h5 text-dark border-bottom pb-2 mb-4">Detail Pembayaran</h2>
                     <div><strong>Nomor Transaksi:</strong> <span id="nomor-pembayaran">-</span></div>
                     <div><strong>Metode Pembayaran:</strong> <span id="tipe-pembayaran">-</span></div>
                 </div>
 
-                <!-- Daftar Pesanan -->
                 <div class="daftar-pesanan mb-4">
                     <h2 class="h5 text-dark border-bottom pb-2 mb-4">Daftar Pesanan</h2>
                     <table class="table table-bordered">
@@ -45,20 +42,17 @@
                     </table>
                 </div>
 
-                <!-- Tombol Selesai dan Download PDF -->
-                <div class="text-center mt-4">
-                    <button id="download-pdf" class="btn btn-danger mx-2"><i class="fas fa-file-pdf"></i> Download
-                        PDF</button>
+                <div class="container-btn-invoice flex items-center mt-4 space-x-4 ">
+                    <button id="download-pdf" class="btn btn-danger bold"><i class="fas fa-file-pdf"></i> Download</button>
                     <button id="finish-button"
-                        class="btn-sukses text-white px-4 py-2 rounded transition duration-200"><i
-                            class="fas fa-check-circle"></i> Selesai</button>
+                        class="btn-sukses text-white rounded transition duration-200">Selesai <i
+                            class="fas fa-check-circle"></i></button>
                 </div>
                 <x-contact></x-contact>
             </div>
         </div>
     </div>
 
-    <!-- CDN html2pdf -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <script>
@@ -110,31 +104,16 @@
 
             // Download PDF
             document.getElementById("download-pdf").addEventListener("click", function() {
-                // const element = document.querySelector(".card-body");
-                const element1 = document.querySelector(".tittle-invoice");
-                const element2 = document.querySelector(".data-pelanggan");
-                const element3 = document.querySelector(".detail-transaksi");
-                const element4 = document.querySelector(".daftar-pesanan");
-                const element5 = document.querySelector(".table");
-                // const element6 = document.querySelector("thead");
-                // const element7 = document.querySelector("tfoot");
-
-                //menggabungkan semua elemen yang ingin diunduh
                 const combinedElement = document.createElement("div");
-                combinedElement.appendChild(element1.cloneNode(true));
-                combinedElement.appendChild(element2.cloneNode(true));
-                combinedElement.appendChild(element3.cloneNode(true));
-                combinedElement.appendChild(element4.cloneNode(true));
-                combinedElement.appendChild(element5.cloneNode(true));
-                // combinedElement.appendChild(element6.cloneNode(true));
-                // combinedElement.appendChild(element7.cloneNode(true));
+                combinedElement.appendChild(document.querySelector(".tittle-invoice").cloneNode(true));
+                combinedElement.appendChild(document.querySelector(".data-pelanggan").cloneNode(true));
+                combinedElement.appendChild(document.querySelector(".detail-transaksi").cloneNode(true));
+                combinedElement.appendChild(document.querySelector(".daftar-pesanan").cloneNode(true));
+                combinedElement.appendChild(document.querySelector(".table").cloneNode(true));
 
-
-
-                // Menggunakan html2pdf untuk mengunduh PDF
                 const element = combinedElement;
                 const opt = {
-                    margin: [-1, 0.5, -1, 0.5], // [top, right, bottom, left] dalam satuan inci
+                    margin: [-1, 0.5, -1, 0.5],
                     filename: 'invoice_gogrilled.pdf',
                     image: {
                         type: 'jpeg',

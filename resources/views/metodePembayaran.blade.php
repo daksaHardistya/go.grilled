@@ -1,62 +1,83 @@
 <x-layoute>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <div class="card-status p-6 bg-white rounded shadow">
-        <h1 class="text-2xl font-bold mb-4">RINCIAN PEMBELANJAAN</h1>
-        <!-- Customer Details -->
-        <div class="customer-details mb-6">
-            <h3 class="font-bold mb-2">Data Customer</h3>
-            <div><strong>Nama:</strong> <span id="customer-name">-</span></div>
-            <div><strong>Nomor WhatsApp:</strong> <span id="customer-phone">-</span></div>
-            <div><strong>Alamat:</strong> <span id="customer-address">-</span></div>
-            <div><strong>Email:</strong> <span id="customer-email">-</span></div>
-            <div><strong>Nomor Transaksi:</strong> <span id="nomor-transaksi">-</span></div>
-            <div><strong>Jenis Pembayaran:</strong> <span id="tipe-pembayaran">-</span></div>
-        </div>
-        <!-- Order Summary -->
-        <div class="order-summary mb-6">
-            <h3 class="font-bold mb-2">Rincian Pembelanjaan</h3>
-            <table class="w-full text-left border border-gray-300 mb-4">
-                <thead class="bg-gray-100">
-                    <tr>
-                        <th class="p-2 border">Nama Item</th>
-                        <th class="p-2 border text-right">Harga</th>
-                    </tr>
-                </thead>
-                <tbody id="order-details" class="bg-white"></tbody>
-            </table>
-            <h3 class="text-right text-xl font-bold">Total: Rp. <span id="total-amount">0</span></h3>
+    <div
+        class="card-status p-4 sm:p-6 lg:p-8 bg-white rounded-lg shadow-xl mx-auto max-w-sm sm:max-w-md md:max-w-xl lg:max-w-2xl mt-8 mb-8 border border-gray-200">
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-800 mb-6 text-center tracking-tight">RINCIAN
+            PEMBELANJAAN</h1>
+
+        <div class="customer-details mb-6 p-4 sm:p-5 border border-blue-200 rounded-lg bg-blue-50">
+            <h3 class="font-bold text-lg sm:text-xl text-blue-800 mb-3">Data Pelanggan</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm sm:text-base text-gray-700">
+                <div><strong>Nama:</strong> <span id="customer-name">-</span></div>
+                <div><strong>Nomor WhatsApp:</strong> <span id="customer-phone">-</span></div>
+                <div><strong>Alamat:</strong> <span id="customer-address">-</span></div>
+                <div><strong>Email:</strong> <span id="customer-email">-</span></div>
+                <div><strong>Nomor Transaksi:</strong> <span id="nomor-transaksi">-</span></div>
+                <div><strong>Jenis Pembayaran:</strong> <span id="tipe-pembayaran">-</span></div>
+            </div>
         </div>
 
-        <!-- Metode Pembayaran -->
-        <div class="payment-method mb-6">
-            <h3 class="font-semibold mb-2">Pilih Metode Pembayaran:</h3>
-            <div class="radio-group">
-                <label>
-                    <input id="cash" class="radio" type="radio" name="payment-method" value="Cash">
-                    Cash <i class="fas fa-money-bill-wave"></i>
+        <div class="order-summary mb-6 p-4 sm:p-5 border border-green-200 rounded-lg bg-green-50">
+            <h3 class="font-bold text-lg sm:text-xl text-green-800 mb-3">Rincian Pembelanjaan</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border border-gray-300 rounded-lg overflow-hidden mb-4">
+                    <thead class="bg-green-100">
+                        <tr>
+                            <th class="p-3 border border-gray-300 text-sm sm:text-base font-semibold text-gray-700">Nama
+                                Item</th>
+                            <th
+                                class="p-3 border border-gray-300 text-right text-sm sm:text-base font-semibold text-gray-700">
+                                Harga</th>
+                        </tr>
+                    </thead>
+                    <tbody id="order-details" class="bg-white divide-y divide-gray-200"></tbody>
+                </table>
+            </div>
+            <h3 class="text-right text-xl sm:text-2xl font-bold text-gray-800 mt-4">Total: Rp. <span
+                    id="total-amount">0</span></h3>
+        </div>
+
+        <div class="payment-method mb-6 p-4 sm:p-5 border border-purple-200 rounded-lg bg-purple-50">
+            <h3 class="font-semibold text-base sm:text-lg text-purple-800 mb-3">Pilih Metode Pembayaran:</h3>
+            <div class="radio-group flex flex-col sm:flex-row sm:space-x-6">
+                <label class="mb-2 sm:mb-0 flex items-center text-gray-700 text-base sm:text-lg">
+                    <input id="cash" class="radio h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500 mr-2"
+                        type="radio" name="payment-method" value="Cash">
+                    Cash <i class="fas fa-money-bill-wave ml-2 text-green-600"></i>
                 </label>
-                <label>
-                    <input id="transfer" class="radio" type="radio" name="payment-method" value="Transfer Bank">
-                    Transfer Bank <i class="fas fa-university"></i>
+                <label class="flex items-center text-gray-700 text-base sm:text-lg">
+                    <input id="transfer" class="radio h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500 mr-2"
+                        type="radio" name="payment-method" value="Transfer Bank">
+                    Transfer Bank <i class="fas fa-university ml-2 text-blue-600"></i>
                 </label>
             </div>
-        </div><br>
-        <!-- Upload Bukti Transfer -->
-        <div id="upload-section" class="upload-section mb-6" style="display: none;">
-            <h5>Rekening transfer :</h5>
-            <h6>a.n. KadeK Yuda Wiryanatha</h6>
-            <h6>Bank BRI: 1122334455 a.n. Go Grilled</h6>
-            <p>*Pastikan untuk menyimpan dan mengunggah bukti transfer Anda.</p>
-            <h5 class="text-black font-bold mb-2">Upload Bukti Transfer</h3>
-                <input type="file" id="proof-upload" name="bukti_pembayaran" accept=".jpg,.jpeg,.png,.pdf"
-                    class="block mt-2" value="File belum diupload">
         </div>
 
-        <!-- Tombol Aksi -->
-        <div class="flex justify-between mt-4">
+        <div id="upload-section" class="upload-section mb-6 p-4 sm:p-5 border border-yellow-200 rounded-lg bg-yellow-50"
+            style="display: none;">
+            <h5 class="font-semibold text-base sm:text-lg text-yellow-800 mb-2">Rekening Transfer:</h5>
+            <h6 class="text-sm sm:text-base text-gray-800">a.n. KadeK Yuda Wiryanatha</h6>
+            <h6 class="text-sm sm:text-base text-gray-800 mb-3">Bank BRI: 1122334455 a.n. Go Grilled</h6>
+            <p class="text-red-600 text-xs sm:text-sm mb-4 italic">*Pastikan untuk menyimpan dan mengunggah bukti
+                transfer Anda.</p>
+            <h5 class="text-black font-bold mb-3 text-base sm:text-lg">Upload Bukti Transfer</h5>
+            <input type="file" id="proof-upload" name="bukti_pembayaran" accept=".jpg,.jpeg,.png,.pdf"
+                class="block w-full text-sm sm:text-base text-gray-700
+                       file:mr-4 file:py-2 file:px-4
+                       file:rounded-full file:border-0
+                       file:text-sm file:font-semibold
+                       file:bg-blue-50 file:text-blue-700
+                       hover:file:bg-blue-100"
+                value="File belum diupload">
+        </div>
+
+        <div class="flex flex-col sm:flex-row justify-between items-center mt-6 space-y-3 sm:space-y-0">
             <x-backbutton />
-            <button id="confirm-button" class="button-confirm" style="display: none;">Place Order <i
-                    class="fas fa-check-circle mr-2"></i></button>
+            <button id="confirm-button" class="button-confirm text-base sm:text-lg w-full sm:w-auto"
+                style="display: none;">
+                Order <i class="fas fa-check-circle ml-2"></i>
+            </button>
+            
         </div>
         <x-contact></x-contact>
     </div>
@@ -96,8 +117,8 @@
                 const subtotal = item.jumlah_paket * item.harga_paket;
                 orderTable.innerHTML += `
                     <tr>
-                        <td class="p-2 border">${item.nama_paket} (x${item.jumlah_paket})</td>
-                        <td class="p-2 border text-right">Rp ${subtotal.toLocaleString('id-ID')}</td>
+                        <td class="p-3 border border-gray-200">${item.nama_paket} (x${item.jumlah_paket})</td>
+                        <td class="p-3 border border-gray-200 text-right">Rp ${subtotal.toLocaleString('id-ID')}</td>
                     </tr>`;
                 totalHarga += subtotal;
             });
@@ -106,8 +127,8 @@
                 const subtotal = item.jumlah_produk * item.harga_produk;
                 orderTable.innerHTML += `
                     <tr>
-                        <td class="p-2 border">${item.nama_produk} (x${item.jumlah_produk})</td>
-                        <td class="p-2 border text-right">Rp ${subtotal.toLocaleString('id-ID')}</td>
+                        <td class="p-3 border border-gray-200">${item.nama_produk} (x${item.jumlah_produk})</td>
+                        <td class="p-3 border border-gray-200 text-right">Rp ${subtotal.toLocaleString('id-ID')}</td>
                     </tr>`;
                 totalHarga += subtotal;
             });
@@ -218,18 +239,21 @@
                         const fonnteToken = 'cFh96YKghJi8GQkN3LFN';
 
                         const pesanAdmin = `🛒 *Order Baru Masuk!*
-                                            👤 *Data Pelanggan:*
-                                            • Nama      : ${customerData.nama}
-                                            • Telepon   : ${customerData.nomor_tlp}
-                                            • Alamat    : ${customerData.alamat}
-                                            📦 *Rincian Belanjaan:*
-                                           *Produk:*\n ${orderProduk.map((item, i) => `• ${i + 1}. ${item.nama_produk} x${item.jumlah_produk} - Rp ${item.harga_produk.toLocaleString('id-ID')}`).join('\n')}
-                                            ${orderPaket.length > 0 ? `\n🎁 
-                                                            *Paket:* \n${orderPaket.map((item, i) => `• ${i + 1}. ${item.nama_paket} x${item.jumlah_paket} - Rp ${item.harga_paket.toLocaleString('id-ID')}`).join('\n')}` : ''}
-                                            💳 *Pembayaran:* ${tipePembayaran}
-                                            🧾 *Nomor Transaksi:* ${nomorPembayaran}
-                                            💰 *Total:* Rp ${totalHarga.toLocaleString('id-ID')}
-                                            `;
+                                        
+                        👤 *Data Pelanggan:*
+                        • Nama    : ${customerData.nama}
+                        • Telepon   : ${customerData.nomor_tlp}
+                        • Alamat    : ${customerData.alamat}
+                        
+                        📦 *Rincian Belanjaan:*
+                        *Produk:*\n ${orderProduk.map((item, i) => `• ${i + 1}. ${item.nama_produk} x${item.jumlah_produk} - Rp ${item.harga_produk.toLocaleString('id-ID')}`).join('\n')}
+                        ${orderPaket.length > 0 ? `\n🎁 
+                                    *Paket:* \n${orderPaket.map((item, i) => `• ${i + 1}. ${item.nama_paket} x${item.jumlah_paket} - Rp ${item.harga_paket.toLocaleString('id-ID')}`).join('\n')}` : ''}
+                        
+                        💳 *Pembayaran:* ${tipePembayaran}
+                        🧾 *Nomor Transaksi:* ${nomorPembayaran}
+                        💰 *Total:* Rp ${totalHarga.toLocaleString('id-ID')}
+                        `;
 
                         fetch("https://api.fonnte.com/send", {
                             method: "POST",
@@ -242,7 +266,7 @@
                             })
                         });
 
-                        alert(" Pesanan berhasil dilakukan, tunggu konfirmasi dari admin kami");
+                        alert("Pesanan berhasil dilakukan, tunggu konfirmasi dari admin kami.");
                         window.location.href = "/invoice"; // Redirect ke invoice / success page
                     })
                     .catch(error => {
