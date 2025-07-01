@@ -43,9 +43,9 @@
                 </div>
 
                 <div class="container-btn-invoice flex items-center mt-4 space-x-4 ">
-                    <button id="download-pdf" class="btn btn-danger bold"><i class="fas fa-file-pdf"></i> Download</button>
-                    <button id="finish-button"
-                        class="btn-sukses text-white rounded transition duration-200">Selesai <i
+                    <button id="download-pdf" class="btn btn-danger bold"><i class="fas fa-file-pdf"></i>
+                        Download</button>
+                    <button id="finish-button" class="btn-sukses text-white rounded transition duration-200">Selesai <i
                             class="fas fa-check-circle"></i></button>
                 </div>
                 <x-contact></x-contact>

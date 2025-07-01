@@ -112,7 +112,7 @@ body {
   pointer-events: none;
 }
 .button-confirm {
-  background-color: #03e434;
+  background-color: #009f05;
   color: #ffffff;
   padding: 10px 20px;
   border-radius: 10px;
@@ -136,6 +136,14 @@ body {
   cursor: not-allowed;
   pointer-events: none;
 }
+.container-btn-metode {
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  gap: 75%;
+  margin-top: 20px;
+}
+
 .container-btn-invoice {
   display: flex;
   justify-content: center;
@@ -144,6 +152,12 @@ body {
   margin-top: 20px;
 }
 @media screen and (max-width: 768px) {
+  .container-btn-metode {
+    /* flex-direction: column; */
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+  }
   .container-btn-invoice {
     flex-direction: row;
     justify-content: center;
@@ -161,9 +175,9 @@ body {
   .container-btn-invoice .btn-sukses {
     width: 100%;
     padding: 10px;
-    font-size: 14px;  
-  
-}}
+    font-size: 14px;
+  }
+}
 /* NAVBAR UTAMA */
 .navbar {
   color: white !important;
@@ -689,7 +703,7 @@ input[type='checkbox'].checklis {
 }
 .btn-sukses {
   text-decoration: none;
-  background-color: #058223; /* Hijau segar */
+  background-color: #009f05; /* Hijau segar */
   color: white;
   border: none;
   padding: 7px 20px;
