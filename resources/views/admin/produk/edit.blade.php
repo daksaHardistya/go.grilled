@@ -26,6 +26,7 @@
 
                 <div>
                     <label class="block text-gray-700">Gambar (optional)</label>
+                    <p>*Maksimal file 5MB</p>
                     <input type="file" name="image_produk" class="w-full border border-gray-300 p-2 rounded">
                     @if ($produk->image_produk)
                         <img src="{{ asset('storage/' . $produk->image_produk) }}"

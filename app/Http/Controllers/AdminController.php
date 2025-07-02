@@ -71,33 +71,57 @@ class AdminController extends Controller
     public function orderUpdate(Request $request, $id)
     {
         $order = tabel_order::findOrFail($id);
-        $order->status_order = $request->status_order;
+        $newStatus = $request->status_order; // Status baru dari request
+
+        // Jika status baru adalah 'batal', hapus order
+        if (strtolower($newStatus) === 'batal') {
+            try {
+                // Opsional: Hapus order_produk dan order_paket terkait secara manual
+                // Jika Anda menggunakan onDelete('cascade') di migrasi, ini tidak diperlukan.
+                // tabel_orderProduk::where('id_order', $id)->delete();
+                // tabel_orderPaket::where('id_order', $id)->delete();
+
+                $order->delete();
+                return redirect()->back()->with('success', 'Order berhasil dibatalkan dan dihapus.');
+            } catch (\Exception $e) {
+                Log::error("Failed to delete order $id: " . $e->getMessage());
+                return redirect()->back()->with('error', 'Gagal menghapus order saat membatalkan.');
+            }
+        }
+
+        // Jika status bukan 'batal', lanjutkan dengan update status dan pengiriman pesan
+        $order->status_order = $newStatus;
         $order->save();
 
+        // Tidak mengirim pesan jika status pending (seperti logika yang sudah ada)
+        if (strtolower($newStatus) === 'pending') {
+            return redirect()->back()->with('success', 'Status order berhasil diperbarui.');
+        }
+
+        // Ambil data orderPaket dan orderProduk setelah order disimpan
         $orderPaket = tabel_orderPaket::where('id_order', $id)->get();
         $orderProduk = tabel_orderProduk::where('id_order', $id)->get();
 
         $pelanggan = $order->data_pelanggan;
+        // Pastikan $pelanggan tidak null sebelum mengakses propertinya
+        if (!$pelanggan) {
+            return redirect()->back()->with('error', 'Data pelanggan tidak ditemukan untuk order ini.');
+        }
         $nomor = preg_replace('/[^0-9]/', '', $pelanggan->nomor_tlp);
         if (str_starts_with($nomor, '0')) {
             $nomor = '62' . substr($nomor, 1);
         }
 
         // Format isi pesan berdasarkan status
-        $status = strtolower($request->status_order);
-        $statusText = match ($status) {
+        $statusText = match (strtolower($newStatus)) {
             'dikirim' => 'telah *dikirim* dan sedang dalam perjalanan',
             'digunakan' => 'telah *diterima* dan sedang digunakan',
             'proses' => 'sedang *diproses*. Mohon ditunggu sebentar lagi.',
             'selesai' => 'telah *selesai*',
-            'batal' => ' *dibatalkan*.',
             'expired' => 'telah memasuki waktu *pengembalian* alat. Silakan hubungi admin untuk melakukan pengembalian.',
             default => 'telah diperbarui',
         };
-        //tidak mengirim pesan jika status pending
-        if ($status === 'pending') {
-            return redirect()->back()->with('success', 'Status order berhasil diperbarui.');
-        }
+
         // Format pesan WhatsApp
         $pesan = "Halo *{$pelanggan->nama_pel}*,\n\n" . "Status pesanan Anda telah diperbarui:\n\n" . '- Paket: *' . ($orderPaket->pluck('paket.nama_paket')->implode(', ') ?: '-') . "*\n" . '- Jumlah Paket: *' . ($orderPaket->pluck('jumlah_orderPaket')->implode(', ') ?: '-') . "*\n" . '- Produk: *' . ($orderProduk->pluck('produk.nama_produk')->implode(', ') ?: '-') . "*\n" . '- Jumlah Produk: *' . ($orderProduk->pluck('jumlah_orderProduk')->implode(', ') ?: '-') . "*\n" . '- Total Belanjaan: *Rp ' . number_format($order->total_belanjaan, 0, ',', '.') . "*\n\n" . "Pesanan Anda saat ini $statusText\n\n" . 'Terima kasih telah mempercayakan harimu bersama *Go.Grilled*!';
 
@@ -131,8 +155,7 @@ class AdminController extends Controller
             'nama_produk' => 'required',
             'harga_produk' => 'required|numeric',
             'stock_produk' => 'required|integer',
-            // Perubahan di sini: Tambahkan |max:5120
-            'image_produk' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120', // Max 2MB (5120KB)
+            'image_produk' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120', // Max 5MB (5120KB)
         ]);
 
         if ($request->hasFile('image_produk')) {
@@ -160,8 +183,7 @@ class AdminController extends Controller
             'nama_produk' => 'required',
             'harga_produk' => 'required|numeric',
             'stock_produk' => 'required|integer',
-            // Perubahan di sini: Tambahkan |max:5MB 
-            'image_produk' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120', // Max 2MB (5120KB)
+            'image_produk' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120', // Max 5MB (5120KB)
         ]);
 
         if ($request->hasFile('image_produk')) {
@@ -170,6 +192,10 @@ class AdminController extends Controller
                 Storage::disk('public')->delete($produk->image_produk);
             }
             $data['image_produk'] = $request->file('image_produk')->store('produk_satuan', 'public');
+        } else {
+            // Jika tidak ada file baru yang diunggah, pastikan image_produk tidak dihapus dari $data
+            // agar tidak menimpa dengan null jika kolomnya tidak nullable
+            unset($data['image_produk']);
         }
 
         $produk->update($data);
@@ -217,7 +243,7 @@ class AdminController extends Controller
             'kategori_paket' => 'required',
             'harga_paket' => 'required|numeric',
             'stock_paket' => 'required|integer',
-            'image_paket' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120', // Max 2MB (5120KB)
+            'image_paket' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120', // Max 5MB (5120KB)
         ]);
 
         if ($request->hasFile('image_paket')) {
@@ -249,8 +275,7 @@ class AdminController extends Controller
             'kategori_paket' => 'required',
             'harga_paket' => 'required|numeric',
             'stock_paket' => 'required|integer',
-            // Perubahan di sini: Tambahkan |max:5120
-            'image_paket' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120', // Max 2MB (5120KB)
+            'image_paket' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120', // Max 5MB (5120KB)
         ]);
 
         if ($request->hasFile('image_paket')) {
@@ -317,6 +342,28 @@ class AdminController extends Controller
         $totalSemua = $totalTransfer + $totalCash;
 
         return view('admin.pembukuan', compact('transferOrders', 'cashOrders', 'totalTransfer', 'totalCash', 'totalSemua'));
+    }
+
+    public function uploadBuktiTf(Request $request)
+    {
+        // Tambahkan validasi di sini
+        $request->validate([
+            'bukti_pembayaran' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5120', // Max 5MB (5120KB)
+        ]);
+
+        if ($request->hasFile('bukti_pembayaran')) {
+            $file = $request->file('bukti_pembayaran');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('bukti_transfer', $fileName, 'public');
+
+            return response()->json([
+                'success' => true,
+                'fileName' => $fileName,
+                'filePath' => Storage::url($path), // Opsional: kirim juga URL yang bisa diakses publik
+            ]);
+        }
+
+        return response()->json(['success' => false, 'message' => 'File tidak ditemukan atau terjadi kesalahan'], 400);
     }
 }
 
