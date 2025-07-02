@@ -11,7 +11,7 @@ use App\Models\tabel_orderProduk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Storage; // Pastikan ini ada
 
 class AdminController extends Controller
 {
@@ -131,7 +131,8 @@ class AdminController extends Controller
             'nama_produk' => 'required',
             'harga_produk' => 'required|numeric',
             'stock_produk' => 'required|integer',
-            'image_produk' => 'nullable|image',
+            // Perubahan di sini: Tambahkan |max:2048
+            'image_produk' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Max 2MB (2048KB)
         ]);
 
         if ($request->hasFile('image_produk')) {
@@ -159,10 +160,15 @@ class AdminController extends Controller
             'nama_produk' => 'required',
             'harga_produk' => 'required|numeric',
             'stock_produk' => 'required|integer',
-            'image_produk' => 'nullable|image',
+            // Perubahan di sini: Tambahkan |max:2048
+            'image_produk' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Max 2MB (2048KB)
         ]);
 
         if ($request->hasFile('image_produk')) {
+            // Hapus gambar lama jika ada
+            if ($produk->image_produk && Storage::disk('public')->exists($produk->image_produk)) {
+                Storage::disk('public')->delete($produk->image_produk);
+            }
             $data['image_produk'] = $request->file('image_produk')->store('produk_satuan', 'public');
         }
 
@@ -173,6 +179,10 @@ class AdminController extends Controller
     public function produkDelete($id)
     {
         $produk = produk_satuan::findOrFail($id);
+        // Hapus gambar jika ada
+        if ($produk->image_produk && Storage::disk('public')->exists($produk->image_produk)) {
+            Storage::disk('public')->delete($produk->image_produk);
+        }
         $produk->delete();
         return redirect()->route('admin.produk.show')->with('success', 'Produk berhasil dihapus');
     }
@@ -207,7 +217,8 @@ class AdminController extends Controller
             'kategori_paket' => 'required',
             'harga_paket' => 'required|numeric',
             'stock_paket' => 'required|integer',
-            'image_paket' => 'nullable|image',
+            // Perubahan di sini: Tambahkan |max:2048
+            'image_paket' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Max 2MB (2048KB)
         ]);
 
         if ($request->hasFile('image_paket')) {
@@ -217,7 +228,7 @@ class AdminController extends Controller
         $data['created_at'] = Carbon::now();
         $data['updated_at'] = Carbon::now();
 
-        menu_paket::create($data);
+        menu_paket::create($data); // Pastikan kolom 'image_paket' di model menu_paket sudah ada di $fillable
 
         return redirect()->route('admin.paket.show')->with('success', 'Paket berhasil ditambahkan');
     }
@@ -230,7 +241,7 @@ class AdminController extends Controller
     }
 
     // Update Paket
-     public function paketUpdate(Request $request, $id)
+    public function paketUpdate(Request $request, $id)
     {
         $paket = menu_paket::findOrFail($id);
         $data = $request->validate([
@@ -239,7 +250,8 @@ class AdminController extends Controller
             'kategori_paket' => 'required',
             'harga_paket' => 'required|numeric',
             'stock_paket' => 'required|integer',
-            'image_paket' => 'nullable|image',
+            // Perubahan di sini: Tambahkan |max:2048
+            'image_paket' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Max 2MB (2048KB)
         ]);
 
         if ($request->hasFile('image_paket')) {
@@ -249,7 +261,12 @@ class AdminController extends Controller
             }
 
             $data['image_paket'] = $request->file('image_paket')->store('menu_paket', 'public');
+        } else {
+            // Jika tidak ada file baru yang diunggah, pastikan image_paket tidak dihapus dari $data
+            // agar tidak menimpa dengan null jika kolomnya tidak nullable
+            unset($data['image_paket']);
         }
+
 
         $paket->update($data);
         return redirect()->route('admin.paket.show')->with('success', 'Paket berhasil diperbarui');
@@ -303,19 +320,28 @@ class AdminController extends Controller
         return view('admin.pembukuan', compact('transferOrders', 'cashOrders', 'totalTransfer', 'totalCash', 'totalSemua'));
     }
 }
+
+// Pastikan fungsi ini didefinisikan di luar class Controller jika tidak menjadi method public/private di class
+// Atau masukkan ke dalam class Helper atau Service Provider
 function kirimPesanWA($nomor, $pesan)
 {
     $client = new \GuzzleHttp\Client();
-    $response = $client->request('POST', 'https://api.fonnte.com/send', [
-        'headers' => [
-            'Authorization' => 'cFh96YKghJi8GQkN3LFN', // ganti dengan API key Fonnte kamu
-        ],
-        'form_params' => [
-            'target' => $nomor,
-            'message' => $pesan,
-            'countryCode' => '62', // Opsional, default 62 untuk Indonesia
-        ],
-    ]);
-
-    return json_decode($response->getBody(), true);
+    try {
+        $response = $client->request('POST', 'https://api.fonnte.com/send', [
+            'headers' => [
+                'Authorization' => 'cFh96YKghJi8GQkN3LFN', // ganti dengan API key Fonnte kamu
+            ],
+            'form_params' => [
+                'target' => $nomor,
+                'message' => $pesan,
+                'countryCode' => '62', // Opsional, default 62 untuk Indonesia
+            ],
+        ]);
+        return json_decode($response->getBody(), true);
+    } catch (\GuzzleHttp\Exception\RequestException $e) {
+        // Tangani kesalahan jika pengiriman pesan WA gagal
+        Log::error("Failed to send WhatsApp message: " . $e->getMessage());
+        // Anda bisa mengembalikan false atau melempar exception lagi
+        return false;
+    }
 }
