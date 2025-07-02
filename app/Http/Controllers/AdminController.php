@@ -132,7 +132,7 @@ class AdminController extends Controller
             'harga_produk' => 'required|numeric',
             'stock_produk' => 'required|integer',
             // Perubahan di sini: Tambahkan |max:2048
-            'image_produk' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Max 2MB (2048KB)
+            'image_produk' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5048', // Max 2MB (2048KB)
         ]);
 
         if ($request->hasFile('image_produk')) {
