@@ -30,7 +30,7 @@
 
                 <div>
                     <label class="block text-gray-700">Gambar</label>
-                    <p>*Maksimal file 5MB</p>
+                    <p>*Maksimal file 2MB</p>
                     <input type="file" name="image_produk" class="w-full border border-gray-300 p-2 rounded">
                 </div>
             </div>

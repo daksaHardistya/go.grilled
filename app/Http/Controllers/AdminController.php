@@ -155,7 +155,7 @@ class AdminController extends Controller
             'nama_produk' => 'required',
             'harga_produk' => 'required|numeric',
             'stock_produk' => 'required|integer',
-            'image_produk' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120', // Max 5MB (5120KB)
+            'image_produk' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Max 5MB (2048KB)
         ]);
 
         if ($request->hasFile('image_produk')) {
@@ -183,7 +183,7 @@ class AdminController extends Controller
             'nama_produk' => 'required',
             'harga_produk' => 'required|numeric',
             'stock_produk' => 'required|integer',
-            'image_produk' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120', // Max 5MB (5120KB)
+            'image_produk' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Max 5MB (2048KB)
         ]);
 
         if ($request->hasFile('image_produk')) {
@@ -243,7 +243,7 @@ class AdminController extends Controller
             'kategori_paket' => 'required',
             'harga_paket' => 'required|numeric',
             'stock_paket' => 'required|integer',
-            'image_paket' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120', // Max 5MB (5120KB)
+            'image_paket' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Max 5MB (2048KB)
         ]);
 
         if ($request->hasFile('image_paket')) {
@@ -275,7 +275,7 @@ class AdminController extends Controller
             'kategori_paket' => 'required',
             'harga_paket' => 'required|numeric',
             'stock_paket' => 'required|integer',
-            'image_paket' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120', // Max 5MB (5120KB)
+            'image_paket' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Max 5MB (2048KB)
         ]);
 
         if ($request->hasFile('image_paket')) {
@@ -344,27 +344,27 @@ class AdminController extends Controller
         return view('admin.pembukuan', compact('transferOrders', 'cashOrders', 'totalTransfer', 'totalCash', 'totalSemua'));
     }
 
-    public function uploadBuktiTf(Request $request)
-    {
-        // Tambahkan validasi di sini
-        $request->validate([
-            'bukti_pembayaran' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5120', // Max 5MB (5120KB)
-        ]);
+    // public function uploadBuktiTf(Request $request)
+    // {
+    //     // Tambahkan validasi di sini
+    //     $request->validate([
+    //         'bukti_pembayaran' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Max 5MB (2048KB)
+    //     ]);
 
-        if ($request->hasFile('bukti_pembayaran')) {
-            $file = $request->file('bukti_pembayaran');
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('bukti_transfer', $fileName, 'public');
+    //     if ($request->hasFile('bukti_pembayaran')) {
+    //         $file = $request->file('bukti_pembayaran');
+    //         $fileName = time() . '_' . $file->getClientOriginalName();
+    //         $path = $file->storeAs('bukti_transfer', $fileName, 'public');
 
-            return response()->json([
-                'success' => true,
-                'fileName' => $fileName,
-                'filePath' => Storage::url($path), // Opsional: kirim juga URL yang bisa diakses publik
-            ]);
-        }
+    //         return response()->json([
+    //             'success' => true,
+    //             'fileName' => $fileName,
+    //             'filePath' => Storage::url($path), // Opsional: kirim juga URL yang bisa diakses publik
+    //         ]);
+    //     }
 
-        return response()->json(['success' => false, 'message' => 'File tidak ditemukan atau terjadi kesalahan'], 400);
-    }
+    //     return response()->json(['success' => false, 'message' => 'File tidak ditemukan atau terjadi kesalahan'], 400);
+    // }
 }
 
 // Pastikan fungsi ini didefinisikan di luar class Controller jika tidak menjadi method public/private di class

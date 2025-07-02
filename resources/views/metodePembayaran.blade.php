@@ -61,6 +61,7 @@
             <p class="text-red-600 text-xs sm:text-sm mb-4 italic">*Pastikan untuk menyimpan dan mengunggah bukti
                 transfer Anda.</p>
             <h5 class="text-black font-bold mb-3 text-base sm:text-lg">Upload Bukti Transfer</h5>
+            <p>*Maksimal file 2MB</p>
             <input type="file" id="proof-upload" name="bukti_pembayaran" accept=".jpg,.jpeg,.png,.pdf"
                 class="block w-full text-sm sm:text-base text-gray-700
                        file:mr-4 file:py-2 file:px-4
@@ -248,7 +249,7 @@
                         📦 *Rincian Belanjaan:*
                         *Produk:*\n ${orderProduk.map((item, i) => `• ${i + 1}. ${item.nama_produk} x${item.jumlah_produk} - Rp ${item.harga_produk.toLocaleString('id-ID')}`).join('\n')}
                         ${orderPaket.length > 0 ? `\n🎁 
-                                                                        *Paket:* \n${orderPaket.map((item, i) => `• ${i + 1}. ${item.nama_paket} x${item.jumlah_paket} - Rp ${item.harga_paket.toLocaleString('id-ID')}`).join('\n')}` : ''}
+                                                                            *Paket:* \n${orderPaket.map((item, i) => `• ${i + 1}. ${item.nama_paket} x${item.jumlah_paket} - Rp ${item.harga_paket.toLocaleString('id-ID')}`).join('\n')}` : ''}
                         
                         💳 *Pembayaran:* ${tipePembayaran}
                         🧾 *Nomor Transaksi:* ${nomorPembayaran}
