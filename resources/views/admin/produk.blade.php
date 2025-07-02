@@ -37,6 +37,7 @@
                                 <form action="{{ route('admin.produk.stock.update', $produk->id_produk) }}"
                                     method="POST" class="flex items-center space-x-2">
                                     @csrf
+                                    @method('PUT')
                                     <input type="number" name="stock_produk" value="{{ $produk->stock_produk }}"
                                         class="w-20 border border-gray-300 p-1 rounded text-center">
                                     <button type="submit"
