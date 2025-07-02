@@ -131,8 +131,8 @@ class AdminController extends Controller
             'nama_produk' => 'required',
             'harga_produk' => 'required|numeric',
             'stock_produk' => 'required|integer',
-            // Perubahan di sini: Tambahkan |max:2048
-            'image_produk' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5048', // Max 2MB (2048KB)
+            // Perubahan di sini: Tambahkan |max:5120
+            'image_produk' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120', // Max 2MB (5120KB)
         ]);
 
         if ($request->hasFile('image_produk')) {
@@ -160,8 +160,8 @@ class AdminController extends Controller
             'nama_produk' => 'required',
             'harga_produk' => 'required|numeric',
             'stock_produk' => 'required|integer',
-            // Perubahan di sini: Tambahkan |max:2048
-            'image_produk' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Max 2MB (2048KB)
+            // Perubahan di sini: Tambahkan |max:5MB 
+            'image_produk' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120', // Max 2MB (5120KB)
         ]);
 
         if ($request->hasFile('image_produk')) {
@@ -217,7 +217,7 @@ class AdminController extends Controller
             'kategori_paket' => 'required',
             'harga_paket' => 'required|numeric',
             'stock_paket' => 'required|integer',
-            'image_paket' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Max 2MB (2048KB)
+            'image_paket' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120', // Max 2MB (5120KB)
         ]);
 
         if ($request->hasFile('image_paket')) {
@@ -249,8 +249,8 @@ class AdminController extends Controller
             'kategori_paket' => 'required',
             'harga_paket' => 'required|numeric',
             'stock_paket' => 'required|integer',
-            // Perubahan di sini: Tambahkan |max:2048
-            'image_paket' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Max 2MB (2048KB)
+            // Perubahan di sini: Tambahkan |max:5120
+            'image_paket' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120', // Max 2MB (5120KB)
         ]);
 
         if ($request->hasFile('image_paket')) {

@@ -53,7 +53,7 @@ class custommerController extends Controller
     public function uploadBuktiTf(Request $request)
     {
         $request->validate([
-            'bukti_pembayaran' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Max 2MB (2048KB)
+            'bukti_pembayaran' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5120', // Max 2MB (5120KB)
         ]);
         if ($request->hasFile('bukti_pembayaran')) {
             $file = $request->file('bukti_pembayaran');
