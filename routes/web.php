@@ -40,7 +40,7 @@ Route::prefix('admin')
             Route::get('/produk', [AdminController::class, 'produkShow'])->name('produk.show');
             Route::get('/paket', [AdminController::class, 'paketShow'])->name('paket.show');
             Route::get('/paket/create', [AdminController::class, 'paketCreate'])->name('paket.create');
-            Route::put('/paket/store', [AdminController::class, 'paketStore'])->name('paket.store');
+            Route::post('/paket/store', [AdminController::class, 'paketStore'])->name('paket.store');
             Route::get('/paket/{id_paket}/edit', [AdminController::class, 'paketEdit'])->name('paket.edit');
             Route::put('/paket/{id}/update', [AdminController::class, 'paketUpdate'])->name('paket.update');
             Route::get('/paket/{id}/delete', [AdminController::class, 'paketDelete'])->name('paket.delete');

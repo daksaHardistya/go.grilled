@@ -4,7 +4,7 @@
         <h2 class="text-2xl font-semibold mb-4 text-gray-800">Tambah produk Baru</h2>
         <form action="{{ route('admin.produk.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            @method('PUT')
+            {{-- @method('PUT') --}}
             <div class="space-y-4">
                 <div>
                     <label class="block text-gray-700">Kode produk</label>

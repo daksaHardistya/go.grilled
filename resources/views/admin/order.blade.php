@@ -75,7 +75,9 @@
                                     @foreach (array_keys($statusColors) as $status)
                                         <form action="{{ route('admin.order.update', ['id' => $order->id_order]) }}"
                                             method="POST">
+                                            {{-- Use POST method for updating status --}}
                                             @csrf
+                                            @method('PUT') {{-- Use PUT method for updating status --}}
                                             <input type="hidden" name="status_order" value="{{ $status }}">
                                             <button type="submit"
                                                 class="px-2 py-1 text-xs rounded font-semibold
