@@ -217,7 +217,6 @@ class AdminController extends Controller
             'kategori_paket' => 'required',
             'harga_paket' => 'required|numeric',
             'stock_paket' => 'required|integer',
-            // Perubahan di sini: Tambahkan |max:2048
             'image_paket' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Max 2MB (2048KB)
         ]);
 
