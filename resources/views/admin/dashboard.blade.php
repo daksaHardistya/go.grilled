@@ -51,7 +51,7 @@
                 <p class="text-2xl font-bold text-purple-500">{{ $statusCounts['dikirim'] ?? 0 }}</p>
             </div>
             <div class="bg-white border border-teal-100 shadow rounded-xl p-4 text-center">
-                <p class="text-sm text-teal-600 font-semibold">Booked</p>
+                <p class="text-sm text-teal-600 font-semibold">Digunakan</p>
                 <p class="text-2xl font-bold text-teal-500">{{ $statusCounts['booked'] ?? 0 }}</p>
             </div>
             <div class="bg-white border border-blue-100 shadow rounded-xl p-4 text-center">

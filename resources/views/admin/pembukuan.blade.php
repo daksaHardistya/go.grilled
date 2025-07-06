@@ -110,7 +110,10 @@
                                     </td>
                                     <td class="py-2 px-4">
                                         <a href="{{ asset('storage/bukti_transfer/' . $order->bukti_pembayaran) }}"
-                                            class="text-blue-600 hover:underline" target="_blank">Lihat</a>
+                                            target="_blank"
+                                            class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm transition">
+                                            Lihat Bukti
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
