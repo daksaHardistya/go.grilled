@@ -240,18 +240,17 @@
                         const fonnteToken = 'cFh96YKghJi8GQkN3LFN';
 
                         const pesanAdmin = `🛒 *Order Baru Masuk!*
-                                            👤 *Data Pelanggan:*
-                                            • Nama    : ${customerData.nama}
-                                            • Telepon : ${customerData.nomor_tlp}
-                                            • Alamat  : ${customerData.alamat}
-                                            📦 *Rincian Belanjaan:*
-                                            *Produk:*
-                                            ${orderProduk.map((item, i) => `• ${i + 1}. ${item.nama_produk} x${item.jumlah_produk} - Rp ${item.harga_produk.toLocaleString('id-ID')}`).join('\n')}
-                                            ${orderPaket.length > 0 ? `\n🎁 *Paket:*\n${orderPaket.map((item, i) => `• ${i + 1}. ${item.nama_paket} x${item.jumlah_paket} - Rp ${item.harga_paket.toLocaleString('id-ID')}`).join('\n')}` : ''}
-                                            💳 *Pembayaran:* ${tipePembayaran}
-                                            🧾 *Nomor Transaksi:* ${nomorPembayaran}
-                                            💰 *Total:* Rp ${totalHarga.toLocaleString('id-ID')}`;
-
+👤 *Data Pelanggan:*
+• Nama    : ${customerData.nama}
+• Telepon : ${customerData.nomor_tlp}
+• Alamat  : ${customerData.alamat}
+📦 *Rincian Belanjaan:*
+*Produk:*
+${orderProduk.map((item, i) => `• ${i + 1}. ${item.nama_produk} x${item.jumlah_produk} - Rp ${item.harga_produk.toLocaleString('id-ID')}`).join('\n')}
+ ${orderPaket.length > 0 ? `\n🎁 *Paket:*\n${orderPaket.map((item, i) => `• ${i + 1}. ${item.nama_paket} x${item.jumlah_paket} - Rp ${item.harga_paket.toLocaleString('id-ID')}`).join('\n')}` : ''}
+💳 *Pembayaran:* ${tipePembayaran}
+🧾 *Nomor Transaksi:* ${nomorPembayaran}
+💰 *Total:* Rp ${totalHarga.toLocaleString('id-ID')}`;
 
                         fetch("https://api.fonnte.com/send", {
                             method: "POST",
