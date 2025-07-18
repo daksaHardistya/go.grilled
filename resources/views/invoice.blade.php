@@ -40,6 +40,7 @@
                             </tr>
                         </tfoot>
                     </table>
+                    <p>*SILAHKAN PILIH SELESAI SEBELUM MENUTUP APLIKASI, TERIMAKSIH</p>
                 </div>
 
                 <div class="container-btn-invoice flex items-center mt-4 space-x-4 ">
